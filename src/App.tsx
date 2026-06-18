@@ -1,4 +1,4 @@
-import TicTacToc from './01-tictactoe/TicTacToc'
+import ThinkingReact from './02-Thinking-in-react/ThinkingReact'
 import './App.css'
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
   return (
     <main className='container'>
       <div className='content'>
-        <TicTacToc />
+        <ThinkingReact />
       </div>
     </main>
   )
