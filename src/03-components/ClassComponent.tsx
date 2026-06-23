@@ -126,7 +126,7 @@ export function ES6() {
                     <p className="font-md text-[14px] py-3 whitespace-pre-wrap">
                         {`ES6부터 나온 함수 컴포넌트는 useState, useEffect 등과 같은 라이프사이클 API를 사용할 수 없었으나,\nv16.8 업데이트 이후 Hooks가 도입되어 해결됨`}</p>
                     <CodeBlock content={ES6AfterExample} />
-                    <div className="bg-black/20 p-4 rounded-md bg-purple-400/10">
+                    <div className="p-4 rounded-md bg-purple-400/10">
                         <p className="font-bold text-[14px] text-white ">함수형 컴포넌트의 장점</p>
                         <ul className="pt-3 text-[14px]">
                             <li>

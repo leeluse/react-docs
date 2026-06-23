@@ -22,7 +22,7 @@ export function GameHistory({ history, setHistory, setArr }: { history: (string 
     }
 
     return (
-        <section className=' flex flex-col m-auto items-center '>
+        <section className=' flex flex-col m-auto items-center min-w-30 '>
             <h3 className='pb-2 font-bold'>History</h3>
             <div className='flex flex-col gap-1  overflow-auto'>
                 {history.map((v, idx) => idx !== 0 && (

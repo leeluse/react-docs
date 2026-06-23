@@ -3,4 +3,5 @@ export const NAV = [
     { id: '2', title: '02. Thinking in React' },
     { id: '3', title: '03. Class Component' },
     { id: '4', title: '04. Props' },
+    { id: '5', title: '05. Life Cycle' },
 ]
