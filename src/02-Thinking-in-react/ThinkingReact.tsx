@@ -1,7 +1,7 @@
 
 export default function ThinkingReact() {
     return (
-        <div>
+        <div className="border p-5">
             <FilterableProductTable />
         </div>
     )
@@ -9,7 +9,7 @@ export default function ThinkingReact() {
 
 export function FilterableProductTable() {
     return (
-        <div className='FilterableProductTable'>
+        <div >
             <SearchBar />
             <ProductTable />
             <ProductTable />
@@ -20,7 +20,7 @@ export function FilterableProductTable() {
 
 export function SearchBar() {
     return (
-        <div className='SearchBar'>
+        <div className='border-2 p-3 border-amber-500'>
             <label htmlFor="textInput">Search : </label>
             <input type="text" id='textInput' placeholder='Search...' />
         </div>
@@ -29,7 +29,7 @@ export function SearchBar() {
 
 export function ProductTable() {
     return (
-        <div className='ProductTable'>
+        <div className='border-2 p-3 border-pink-500'>
             <ProducCategoryRow />
             <ProductRow />
             <ProductRow />
@@ -39,12 +39,12 @@ export function ProductTable() {
 
 export function ProducCategoryRow() {
     return (
-        <div className='ProducCategoryRow'>ProductCategoryRow</div>
+        <div className='border-2 p-3 border-blue-500'>ProductCategoryRow</div>
     )
 }
 
 export function ProductRow() {
     return (
-        <div className='ProductRow'>ProductRow</div>
+        <div className='border-2 p-3'>ProductRow</div>
     )
 }
