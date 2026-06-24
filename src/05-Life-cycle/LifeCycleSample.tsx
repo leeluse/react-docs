@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 interface Props {
-  color: string;
+  color: string | null;
 }
 
 interface State {
@@ -64,7 +64,7 @@ class LifeCycleSample extends Component<Props, State> {
     });
   };
 
-  getSnapshotBeforeUpdate(prevProps: Props, prevState: State) {
+  getSnapshotBeforeUpdate(prevProps: Props) {
     console.log("📸 [Update Phase] 2. getSnapshotBeforeUpdate - 브라우저 DOM 반영 직전의 DOM 스타일 색상 캡처");
     if (prevProps.color !== this.props.color) {
       const prevDOMColor = this.myRef ? this.myRef.style.color : null;
