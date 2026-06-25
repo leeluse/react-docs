@@ -2,6 +2,7 @@ import { Component } from 'react';
 
 interface Props {
   color: string | null;
+  onUnmount: () => void;
 }
 
 interface State {
@@ -16,8 +17,11 @@ class LifeCycleSample extends Component<Props, State> {
   };
   myRef: HTMLDivElement | null = null;
 
-  // constructor 메소드
+  // constructor 메소드: 생성자 함수
+  // super를 통해 부모 클래스의 메서드를 호출하고 props를 전달해야 함
+  // 아래처럼 할 경우 this.props가 props로 설정되어 클래스 전체에서 사용 가능함
   constructor(props: Props) {
+    // super: 부모 클래스의 메서드를 호출한다
     super(props);
     console.log('🟢 [Mount Phase] constructor - 컴포넌트 인스턴스 생성 및 초기화 완료');
   }
@@ -100,12 +104,20 @@ class LifeCycleSample extends Component<Props, State> {
           <p className="text-sm">State Color (Derived): <span className="font-mono text-white px-1.5 py-0.5 rounded bg-black/30">{this.state.color}</span></p>
           <p className="text-sm">State Number: <span className="font-semibold">{this.state.number ?? 0}</span></p>
         </div>
-        <button 
-          onClick={this.handleClick}
-          className="mt-2 w-fit px-3 py-1 text-sm  hover:bg-white/20 text-slate-200 border border-slate-700 font-medium rounded-md shadow transition duration-150 cursor-pointer"
-        >
-          더하기 (number + 1)
-        </button>
+        <div className="flex gap-2 mt-2">
+          <button 
+            onClick={this.handleClick}
+            className="w-fit px-3 py-1 text-sm hover:bg-white/20 text-slate-200 border border-slate-700 font-medium rounded-md shadow transition duration-150 cursor-pointer"
+          >
+            더하기 (number + 1)
+          </button>
+          <button 
+            onClick={this.props.onUnmount}
+            className="w-fit px-3 py-1 text-sm bg-red-950/30 hover:bg-red-900/50 text-red-300 border border-red-900/50 font-medium rounded-md shadow transition duration-150 cursor-pointer"
+          >
+            언마운트 (Unmount)
+          </button>
+        </div>
         <p className="text-xs text-amber-400/80 mt-3">
           * number가 10으로 나눈 나머지가 4인 경우 (예: 4, 14...) shouldComponentUpdate가 false를 반환하여 렌더링이 되지 않습니다.
         </p>

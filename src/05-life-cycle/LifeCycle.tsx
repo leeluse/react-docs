@@ -55,9 +55,18 @@ export default function LifeCycle() {
         <ComponentDidUpdate />
         <ComponentWillUnmount />
         <ComponentDidCatch />
+        <ExampleLifeCycleFlow />
       </section>
-        <h2 className="text-xl font-bold text-white mb-4">Life Cycle 실습</h2>
-        <p className="pb-5">개발자 도구에서 console을 확인할 경우 라이프 사이클의 순서를 확인할 수 있습니다</p>
+    </div>
+  )
+}
+
+
+export function  ExampleLifeCycleFlow() {
+  return (
+    <>
+    <h2 className="text-xl font-bold text-white">Life Cycle 실습</h2>
+        <p>개발자 도구에서 console을 확인할 경우 라이프 사이클의 순서를 확인할 수 있습니다</p>
       <section className="flex  justify-center gap-10">
         <Example />
         <div className="w-150">
@@ -72,7 +81,7 @@ export default function LifeCycle() {
 ✨ [Mount Phase] componentDidMount - 컴포넌트 첫 렌더링 후 DOM 마운트 완료" `}</p>
         </div>
       </section>
-    </div>
+      </>
   )
 }
 
@@ -374,7 +383,7 @@ function Unmount() {
   )
 }
 
-const Arrow = () => {
+export const Arrow = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-slate-400/60 my-0.5">
       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />

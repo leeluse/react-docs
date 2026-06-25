@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import TicTacToc from './01-tictactoe/TicTacToe';
-import ThinkingReact from './02-Thinking-in-react/ThinkingReact';
-import ClassComponent from './03-components/ClassComponent';
-import Props from './04-props/Props';
-import LifeCycle from './05-Life-cycle/LifeCycle';
+import ClassComponentApp from './02-components/ClassComponent';
+import Props from './03-props/Props';
+import LifeCycle from './05-life-cycle/LifeCycle';
+import EventHandling from './04-event-handling/EventHandling';
 
 
 export default function Home() {
@@ -14,13 +14,13 @@ export default function Home() {
       return <TicTacToc />;
 
     case "2":
-      return <ThinkingReact />;
+      return <ClassComponentApp />;
 
     case "3":
-      return <ClassComponent />;
+      return <Props />;
 
     case "4":
-      return <Props />;
+      return <EventHandling />
 
     case "5":
       return <LifeCycle />;
