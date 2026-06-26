@@ -516,7 +516,7 @@ export function Mouse() {
 
 export function Animation() {
   const [currentEvent, setCurrentEvent] = useState('None')
-  const [logs, setLogs] = useState([])
+  const [logs, setLogs] = useState<string[]>([])
   // CSS animation을 “처음부터 다시 실행”시키려면 보통 브라우저가 그 요소를 새 애니메이션 대상으로 인식하게 만들어야 함
   // 그렇기 때문에 현재 key를 초기화하게 함으로서 DOM을 재생성하도록 유도
   const [animKey, setAnimKey] = useState(0)
