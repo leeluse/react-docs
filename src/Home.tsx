@@ -4,6 +4,7 @@ import ClassComponentApp from './02-components/ClassComponent'
 import Props from './03-props/Props'
 import LifeCycle from './05-life-cycle/LifeCycle'
 import EventHandling from './04-event-handling/EventHandling'
+import Ref from './06-Ref/Ref'
 
 export default function Home() {
   const { id } = useParams()
@@ -23,6 +24,9 @@ export default function Home() {
 
     case '5':
       return <LifeCycle />
+
+    case '6':
+      return <Ref />
 
     default:
       return <div className="text-white"></div>
