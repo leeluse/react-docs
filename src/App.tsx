@@ -6,7 +6,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/1" replace />} />
+        <Route path="/" element={<Navigate to="/tictactoe" replace />} />
         <Route path="/:id" element={<Layout />}>
           <Route index element={<Home />} />
         </Route>

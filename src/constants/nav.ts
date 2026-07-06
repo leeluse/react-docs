@@ -1,8 +1,10 @@
 export const NAV = [
-  { id: '1', title: '01. Tic-Tac-Toe' },
-  { id: '2', title: '02. Class Component' },
-  { id: '3', title: '03. Props' },
-  { id: '4', title: '04. Event Handling' },
-  { id: '5', title: '05. Life Cycle' },
-  { id: '6', title: '06. Ref: DOM' },
+  { id: 'tictactoe', title: '01. Tic-Tac-Toe' },
+  { id: 'function', title: '02. Function' },
+  { id: 'class', title: '03. Class' },
+  { id: 'components', title: '04. Components' },
+  { id: 'closure', title: '05. Closure' },
+  { id: 'event-handling', title: '06. Event Handling' },
+  { id: 'life-cycle', title: '07. Life Cycle' },
+  { id: 'ref', title: '08. Ref: DOM' },
 ]

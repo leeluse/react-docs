@@ -1,31 +1,39 @@
 import { useParams } from 'react-router-dom'
 import TicTacToc from './01-tictactoe/TicTacToe'
-import ClassComponentApp from './02-components/ClassComponent'
-import Props from './03-props/Props'
-import LifeCycle from './05-life-cycle/LifeCycle'
-import EventHandling from './04-event-handling/EventHandling'
-import Ref from './06-Ref/Ref'
+import Function from './02-Function/Function'
+import Class from './03-class/Class'
+import ClassComponentApp from './04-components/ClassComponent'
+import Closure from './05-closure/Closure'
+import EventHandling from './06-event-handling/EventHandling'
+import LifeCycle from './07-life-cycle/LifeCycle'
+import Ref from './08-Ref/Ref'
 
 export default function Home() {
   const { id } = useParams()
 
   switch (id) {
-    case '1':
+    case 'tictactoe':
       return <TicTacToc />
 
-    case '2':
+    case 'function':
+      return <Function />
+
+    case 'class':
+      return <Class />
+
+    case 'components':
       return <ClassComponentApp />
 
-    case '3':
-      return <Props />
+    case 'closure':
+      return <Closure />
 
-    case '4':
+    case 'event-handling':
       return <EventHandling />
 
-    case '5':
+    case 'life-cycle':
       return <LifeCycle />
 
-    case '6':
+    case 'ref':
       return <Ref />
 
     default:

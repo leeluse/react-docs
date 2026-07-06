@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { NAV } from '../constants/nav'
 import { useState } from 'react'
-import { Arrow } from '../05-life-cycle/LifeCycle'
+import { Arrow } from '../07-life-cycle/LifeCycle'
 
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(true)
