@@ -90,7 +90,7 @@ dog.say();
 export default function ClassComponentApp() {
   return (
     <section className="flex flex-col m-5 gap-15 py-25">
-      <h1 className="text-[45px] font-bold text-white"># Class Component</h1>
+      <h1 className="text-[45px] font-bold text-white"># Component</h1>
       <ClassVsFunction />
       <ES6 />
       <ArrowFunction />
