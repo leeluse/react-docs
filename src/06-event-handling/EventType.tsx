@@ -1161,17 +1161,21 @@ export function OnTouch() {
 
 export function Table({ data }: { data: { label: string; value: string }[] }) {
   return (
-    <table className="border-collapse border border-slate-100/30 text-xs sm:text-sm w-full md:w-[400px] h-fit text-slate-300">
-      <tbody>
-        {data.map((item) => (
-          <tr key={item.label}>
-            <td className="border border-slate-200/30 px-3 py-2 font-mono text-purple-300/80 font-semibold">
-              {item.label}
-            </td>
-            <td className="border border-slate-200/30 px-3 py-2 text-slate-400">{item.value}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="w-full md:w-[400px] overflow-x-auto border border-base-border/50 rounded-lg shrink-0 h-fit bg-black/5 dark:bg-white/5">
+      <table className="w-full border-collapse text-xs sm:text-sm text-base-text">
+        <tbody>
+          {data.map((item) => (
+            <tr key={item.label} className="border-b border-base-border/30 last:border-0 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+              <td className="px-3 py-2.5 font-mono text-primary font-bold bg-black/5 dark:bg-white/5 w-1/3">
+                {item.label}
+              </td>
+              <td className="px-3 py-2.5 leading-relaxed text-slate-600 dark:text-zinc-400">
+                {item.value}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   )
 }

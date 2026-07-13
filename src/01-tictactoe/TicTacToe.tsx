@@ -7,7 +7,7 @@ export default function TicTacToc() {
   const [arr, setArr] = useState<(string | null)[]>(Array.from({ length: 9 }, () => null))
 
   return (
-    <div className="h-full flex gap-2 m-auto ">
+    <div className="flex flex-col md:flex-row gap-8 justify-center items-center md:items-start py-8">
       <Board history={history} setHistory={setHistory} arr={arr} setArr={setArr} />
       <GameHistory history={history} setHistory={setHistory} setArr={setArr} />
     </div>
@@ -30,14 +30,14 @@ export function GameHistory({
   }
 
   return (
-    <section className=" flex flex-col m-auto items-center min-w-30 ">
-      <h3 className="pb-2 font-bold">History</h3>
-      <div className="flex flex-col gap-1  overflow-auto">
+    <section className="flex flex-col items-center min-w-[120px]">
+      <h3 className="pb-3 text-lg font-bold text-base-heading">History</h3>
+      <div className="flex flex-col gap-2 max-h-60 overflow-y-auto pr-1">
         {history.map(
           (v, idx) =>
             idx !== 0 && (
               <button
-                className="border w-30 rounded-sm text-sm py-1 font-light"
+                className="border border-base-border text-base-text hover:text-primary hover:border-primary w-28 rounded-md text-xs sm:text-sm py-1.5 font-medium transition-all"
                 onClick={() => clickHistory(v)}
                 key={idx}
               >{`${idx}번째 스택`}</button>
@@ -73,11 +73,11 @@ export function Board({
   }
 
   return (
-    <section className="m-auto">
-      <p className="pb-2 font-bold text-center">
-        {ValidationWinner(arr) ? `Winner : ${curr}` : `Next : ${next}`}
+    <section className="flex flex-col items-center">
+      <p className="pb-4 text-lg font-bold text-base-heading text-center">
+        {ValidationWinner(arr) ? `Winner : ${curr}` : `Next Player : ${next}`}
       </p>
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-3 gap-1 bg-base-border/20 p-1 rounded-lg">
         {arr.map((value, i) => (
           <Square key={i} value={value} onSquareClick={() => onSquareClick(i)} />
         ))}
@@ -94,7 +94,10 @@ export function Square({
   onSquareClick: () => void
 }) {
   return (
-    <button className="border bordr size-25" onClick={onSquareClick}>
+    <button
+      className="border border-base-border/50 size-16 sm:size-20 flex items-center justify-center text-xl sm:text-2xl font-bold rounded bg-base-bg text-base-heading hover:bg-primary-bg/30 transition-colors cursor-pointer"
+      onClick={onSquareClick}
+    >
       {value}
     </button>
   )
