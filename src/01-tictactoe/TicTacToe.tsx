@@ -30,7 +30,7 @@ export function GameHistory({
   }
 
   return (
-    <section className="flex flex-col items-center min-w-[120px]">
+    <section className="flex flex-col items-center min-w-30">
       <h3 className="pb-3 text-lg font-bold text-base-heading">History</h3>
       <div className="flex flex-col gap-2 max-h-60 overflow-y-auto pr-1">
         {history.map(

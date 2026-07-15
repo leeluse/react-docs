@@ -10,7 +10,7 @@ export function OnCopy() {
   return (
     <main className="flex flex-col md:flex-row gap-5 md:gap-10 w-full">
       <Table data={ClipboardEvents} />
-      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-[560px] rounded-sm h-fit border-gray-500/30">
+      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-140 rounded-sm h-fit border-gray-500/30">
         <div className="flex flex-col justify-between">
           <label className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2">
@@ -23,7 +23,7 @@ export function OnCopy() {
             </div>
             <input
               type="text"
-              className="border p-2 rounded-sm text-xs sm:text-sm w-full sm:w-[280px] outline-none border-slate-300/30 bg-black/10 text-slate-200"
+              className="border p-2 rounded-sm text-xs sm:text-sm w-full sm:w-70 outline-none border-slate-300/30 bg-black/10 text-slate-200"
               defaultValue={'Copy / Cut / Paste를 진행해 보세요'}
               onCopy={() => setCurrentEvent('onCopy event')}
               onCut={() => setCurrentEvent('onCut event')}
@@ -42,7 +42,7 @@ export function UI() {
   return (
     <main className="flex flex-col md:flex-row gap-5 md:gap-10 w-full">
       <Table data={UIEvents} />
-      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-[560px] rounded-sm h-fit border-gray-500/30">
+      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-140 rounded-sm h-fit border-gray-500/30">
         <label className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="text-xs sm:text-sm text-purple-400 font-semibold">발생 이벤트 </span>
@@ -54,7 +54,7 @@ export function UI() {
           </div>
           <textarea
             readOnly
-            className="resize-none h-20 border p-2 rounded-sm text-xs sm:text-sm w-full sm:w-[280px] outline-none border-slate-300/30 bg-black/10 text-slate-200 scrollbar-none"
+            className="resize-none h-20 border p-2 rounded-sm text-xs sm:text-sm w-full sm:w-70 outline-none border-slate-300/30 bg-black/10 text-slate-200 scrollbar-none"
             value={
               '해당 textarea를 스크롤을 움직이면 onScroll event가 발생합니다. 일반적으로는 스크롤 이벤트는 스크롤의 결과값을 onScroll로 확인하지만, 스크롤을 움직일 때 onScroll이 발생한다고 이해하시면 됩니다'
             }
@@ -76,7 +76,7 @@ export function Focus() {
   return (
     <main className="flex flex-col md:flex-row gap-5 md:gap-10 w-full">
       <Table data={UIEvents} />
-      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-[560px] rounded-sm h-fit border-gray-500/30">
+      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-140 rounded-sm h-fit border-gray-500/30">
         <label className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="text-xs sm:text-sm text-purple-400 font-semibold">발생 이벤트 </span>
@@ -88,7 +88,7 @@ export function Focus() {
           </div>
           <input
             readOnly
-            className="border p-2 rounded-sm text-xs sm:text-sm w-full sm:w-[280px] outline-none border-slate-300/30 bg-black/10 text-slate-200"
+            className="border p-2 rounded-sm text-xs sm:text-sm w-full sm:w-70 outline-none border-slate-300/30 bg-black/10 text-slate-200"
             value={text}
             onFocus={() => {
               setText('😎 Thx, Go Away 🫵')
@@ -150,7 +150,7 @@ export function Media() {
 
   return (
     <main className="flex flex-col md:flex-row gap-5 md:gap-10 w-full">
-      <table className="border-collapse border border-slate-100/30 text-xs sm:text-sm w-full md:w-[400px] h-fit text-slate-300">
+      <table className="border-collapse border border-slate-100/30 text-xs sm:text-sm w-full md:w-100 h-fit text-slate-300">
         <tbody className="">
           {MediaEvents1.map((item) => (
             <tr key={item.label}>
@@ -162,7 +162,7 @@ export function Media() {
           ))}
         </tbody>
       </table>
-      <table className="border-collapse border border-slate-100/30 text-xs sm:text-sm w-full md:w-[400px] h-fit text-slate-300">
+      <table className="border-collapse border border-slate-100/30 text-xs sm:text-sm w-full md:w-100 h-fit text-slate-300">
         <tbody className="">
           {MediaEvent2.map((item) => (
             <tr key={item.label}>
@@ -206,7 +206,7 @@ export function Form() {
     <main className="flex flex-col md:flex-row gap-5 md:gap-10 w-full">
       <Table data={FormEvents} />
 
-      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-[560px] rounded-sm h-fit border-gray-500/30">
+      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-140 rounded-sm h-fit border-gray-500/30">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex flex-col justify-between w-full">
             <div className="flex items-center justify-between">
@@ -865,7 +865,7 @@ export function Wheel() {
   return (
     <main className="flex flex-col md:flex-row gap-5 md:gap-10 w-full">
       <Table data={UIEvents} />
-      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-[560px] rounded-sm h-fit border-gray-500/30">
+      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-140 rounded-sm h-fit border-gray-500/30">
         <label className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="text-xs sm:text-sm text-purple-400 font-semibold">발생 이벤트 </span>
@@ -880,7 +880,7 @@ export function Wheel() {
             value={
               '마우스 휠을 위아래로 스크롤해보세요. onWheel은 휠 동작 감지 / onScroll은 스크롤 결과 감지라는 차이점이 있습니다.'
             }
-            className="resize-none h-15 border p-2 rounded-sm text-xs sm:text-sm w-full sm:w-[280px] outline-none border-slate-300/30 bg-black/10 text-slate-200 scrollbar-none"
+            className="resize-none h-15 border p-2 rounded-sm text-xs sm:text-sm w-full sm:w-70 outline-none border-slate-300/30 bg-black/10 text-slate-200 scrollbar-none"
             onWheel={() => setCurrentEvent('onWheel event')}
           />
         </label>
@@ -909,7 +909,7 @@ export function KeyBoard() {
     <main className="flex flex-col md:flex-row gap-5 md:gap-10 w-full">
       <Table data={KeyboardEvents} />
 
-      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-[560px] rounded-sm h-fit border-gray-500/30">
+      <section className="flex flex-col gap-3 justify-between border p-4 w-full md:w-140 rounded-sm h-fit border-gray-500/30">
         <label className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="text-xs sm:text-sm text-purple-400 font-semibold">발생 이벤트</span>
@@ -928,7 +928,7 @@ export function KeyBoard() {
           <input
             type="text"
             placeholder="해당 인풋에서 키보드를 길게 눌렀다 떼 보세요"
-            className="border p-2 rounded-sm text-xs sm:text-sm w-full sm:w-[280px] outline-none border-slate-300/30 bg-black/10 text-slate-200 placeholder:text-slate-500"
+            className="border p-2 rounded-sm text-xs sm:text-sm w-full sm:w-70 outline-none border-slate-300/30 bg-black/10 text-slate-200 placeholder:text-slate-500"
             onKeyDown={(e) => {
               if (e.repeat) return
               addEvent('onKeyDown')
@@ -969,7 +969,7 @@ export function Composition() {
   return (
     <main className="flex flex-col md:flex-row gap-5 md:gap-10 w-full">
       <Table data={CompositionEvents} />
-      <section className="flex flex-col gap-3 justify-between border p-4 h-fit w-full md:w-[560px] rounded-sm border-gray-500/30">
+      <section className="flex flex-col gap-3 justify-between border p-4 h-fit w-full md:w-140 rounded-sm border-gray-500/30">
         <div className="flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs sm:text-sm text-purple-400 font-semibold">이벤트 LOG</span>
@@ -1020,7 +1020,7 @@ export function Image() {
   return (
     <main className="flex flex-col md:flex-row gap-5 md:gap-10 w-full">
       <Table data={ImageEvents} />
-      <section className="flex flex-col gap-3 justify-between border p-4 h-fit w-full md:w-[560px] rounded-sm border-gray-500/30">
+      <section className="flex flex-col gap-3 justify-between border p-4 h-fit w-full md:w-140 rounded-sm border-gray-500/30">
         <div className="flex items-center gap-2">
           <span className="text-xs sm:text-sm text-purple-400 font-semibold">발생 이벤트 </span>
           <span
@@ -1042,7 +1042,7 @@ export function Image() {
             onClick={() => {
               setImageSrc(`https://picsum.photos/365/365?random=${Date.now()}`)
             }}
-            className="rounded border py-1 border-white/30 cursor-pointer hover:bg-white/5 text-xs sm:text-sm px-2.5 sm:px-3 py-0.5 text-slate-300"
+            className="rounded border border-white/30 cursor-pointer hover:bg-white/5 text-xs sm:text-sm px-2.5 sm:px-3 py-0.5 text-slate-300"
           >
             🖼️ 정상 이미지 LOAD
           </button>
@@ -1093,7 +1093,7 @@ export function OnTouch() {
   return (
     <main className="flex flex-col md:flex-row gap-5 md:gap-10 w-full">
       <Table data={OnTouchInfo} />
-      <section className="flex flex-col gap-3 justify-between border p-4 h-fit w-full md:w-[560px] rounded-sm border-gray-500/30">
+      <section className="flex flex-col gap-3 justify-between border p-4 h-fit w-full md:w-140 rounded-sm border-gray-500/30">
         <div className="flex flex-col justify-between gap-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -1161,7 +1161,7 @@ export function OnTouch() {
 
 export function Table({ data }: { data: { label: string; value: string }[] }) {
   return (
-    <div className="w-full md:w-[400px] overflow-x-auto border border-base-border/50 rounded-lg shrink-0 h-fit bg-black/5 dark:bg-white/5">
+    <div className="w-full md:w-100 overflow-x-auto border border-base-border/50 rounded-lg shrink-0 h-fit bg-black/5 dark:bg-white/5">
       <table className="w-full border-collapse text-xs sm:text-sm text-base-text">
         <tbody>
           {data.map((item) => (

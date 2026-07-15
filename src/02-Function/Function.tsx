@@ -1,4 +1,4 @@
-import { Arrow } from '../07-life-cycle/LifeCycle'
+import { Arrow } from '../08-life-cycle/LifeCycle'
 import CodeBlock from '../components/CodeBlock'
 
 export default function Function() {

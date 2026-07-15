@@ -89,7 +89,7 @@ export function ReactEventSystem() {
           리액트의 이벤트 시스템은 웹 브라우저의 HTML 이벤트와 인터페이스가 동일해서 사용법이 매우 비슷합니다.
         </p>
         <CodeBlock
-          content={`const Say = () => {\n  const [message, setMessage] = useState(\'\');\n  const onClickEnter = () => setMessage(\'안녕하세요!\');\n  const onClickLeave = () => setMessage(\'안녕히 가세요.\');\n\n  return (\n      <div>\n        <button onClick={onClickEnter}>입장</button>\n        <button onClick={onClickLeave}>퇴장</button>\n      </div>\n  )\n}`}
+          content={`const Say = () => {\n  const [message, setMessage] = useState('');\n  const onClickEnter = () => setMessage('안녕하세요!');\n  const onClickLeave = () => setMessage('안녕히 가세요.');\n\n  return (\n      <div>\n        <button onClick={onClickEnter}>입장</button>\n        <button onClick={onClickLeave}>퇴장</button>\n      </div>\n  )\n}`}
         />
       </div>
       <div className="border border-base-border/50 bg-black/5 dark:bg-white/5 p-5 rounded-lg w-full lg:w-80 h-fit lg:mt-12 flex flex-col gap-3 shrink-0">
