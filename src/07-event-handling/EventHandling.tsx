@@ -19,14 +19,18 @@ import {
 export default function EventHandling() {
   return (
     <section className="flex flex-col gap-10 py-6 text-base-text">
-      <h1 className="text-2xl sm:text-3xl font-extrabold text-base-heading border-b border-base-border/30 pb-4 mb-6"># Event Handling</h1>
-      
+      <h1 className="text-2xl sm:text-3xl font-extrabold text-base-heading border-b border-base-border/30 pb-4 mb-6">
+        # Event Handling
+      </h1>
+
       <article className="flex flex-col gap-2">
         <h3 className="text-xl sm:text-2xl font-bold text-primary mb-2">이벤트(event)란?</h3>
         <div className="border-l-4 border-primary pl-4 py-1.5 bg-primary-bg/10 rounded-r-lg">
           <p className="leading-relaxed text-sm sm:text-base">
-            사용자가 웹 브라우저에 DOM 요소들과 상호 작용을 하는 것을 이벤트(event)라고 합니다.\n
-            마우스 커서를 올렸을 때는 onmouseover 이벤트를 실행하고, 클릭했을 때는 onclick 이벤트를 실행합니다.
+            사용자가 웹 브라우저에 DOM 요소들과 상호 작용을 하는 것을 이벤트(event)라고 합니다.{' '}
+            <br />
+            마우스 커서를 올렸을 때는 onmouseover 이벤트를 실행하고, 클릭했을 때는 onclick 이벤트를
+            실행합니다.
           </p>
         </div>
       </article>
@@ -54,8 +58,12 @@ export default function EventHandling() {
             </div>
             <div className="w-full max-w-md rounded-lg p-5 border border-base-border/50 bg-black/5 dark:bg-white/5 flex flex-col gap-4">
               <div className="flex justify-between items-center">
-                <h3 className="text-base-heading text-sm sm:text-base font-bold">null.document.com 내용:</h3>
-                <button className="font-black text-slate-500 hover:text-base-heading cursor-pointer">X</button>
+                <h3 className="text-base-heading text-sm sm:text-base font-bold">
+                  null.document.com 내용:
+                </h3>
+                <button className="font-black text-slate-500 hover:text-base-heading cursor-pointer">
+                  X
+                </button>
               </div>
               <p className="text-xs sm:text-sm text-base-text">hello</p>
               <div className="text-end">
@@ -68,10 +76,11 @@ export default function EventHandling() {
         </div>
         <p className="leading-relaxed mt-2 text-sm sm:text-base">
           여기서 Click me 버튼을 누르게 되면 alert 함수를 사용하여 메시지 박스를 띄우게 됩니다.\n
-          이처럼 HTML에서는 이벤트를 실행하면 "" 사이에 있는 자바스크립트를 실행하도록 코드를 작성합니다.
+          이처럼 HTML에서는 이벤트를 실행하면 "" 사이에 있는 자바스크립트를 실행하도록 코드를
+          작성합니다.
         </p>
       </article>
-      
+
       <ReactEventSystem />
       <ReactEventType />
     </section>
@@ -86,7 +95,8 @@ export function ReactEventSystem() {
           • 리액트의 이벤트 시스템
         </h3>
         <p className="leading-relaxed text-sm sm:text-base">
-          리액트의 이벤트 시스템은 웹 브라우저의 HTML 이벤트와 인터페이스가 동일해서 사용법이 매우 비슷합니다.
+          리액트의 이벤트 시스템은 웹 브라우저의 HTML 이벤트와 인터페이스가 동일해서 사용법이 매우
+          비슷합니다.
         </p>
         <CodeBlock
           content={`const Say = () => {\n  const [message, setMessage] = useState('');\n  const onClickEnter = () => setMessage('안녕하세요!');\n  const onClickLeave = () => setMessage('안녕히 가세요.');\n\n  return (\n      <div>\n        <button onClick={onClickEnter}>입장</button>\n        <button onClick={onClickLeave}>퇴장</button>\n      </div>\n  )\n}`}
@@ -110,8 +120,13 @@ export function ReactEventSystem() {
             <p className="text-slate-500 pl-3">- React: 중괄호 내에 함수 레퍼런스 객체를 전달</p>
           </li>
           <li className="flex flex-col gap-0.5">
-            <span className="font-semibold text-base-heading">3. DOM 요소에만 이벤트를 설정할 수 있다</span>
-            <p className="text-slate-500 pl-3">- div, button 등 표준 태그만 직접 바인딩 가능하며, 사용자 정의 컴포넌트에는 직접 바인딩 불가</p>
+            <span className="font-semibold text-base-heading">
+              3. DOM 요소에만 이벤트를 설정할 수 있다
+            </span>
+            <p className="text-slate-500 pl-3">
+              - div, button 등 표준 태그만 직접 바인딩 가능하며, 사용자 정의 컴포넌트에는 직접
+              바인딩 불가
+            </p>
           </li>
         </ol>
       </div>
@@ -173,7 +188,8 @@ export function ReactEventType() {
       </div>
       <div className="flex flex-col gap-4 border-t border-base-border/30 pt-4">
         <h3 className="font-bold text-base sm:text-lg text-base-heading">• Selection Event</h3>
-        <OnCopy /> {/* Original had <Selection /> but import had Selection, wait - code had Selection, let\'s check the import list, it has Selection */}
+        <OnCopy />{' '}
+        {/* Original had <Selection /> but import had Selection, wait - code had Selection, let\'s check the import list, it has Selection */}
         <Selection />
       </div>
       <div className="flex flex-col gap-4 border-t border-base-border/30 pt-4">
