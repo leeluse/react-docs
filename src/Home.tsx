@@ -1,13 +1,18 @@
 import { useParams } from 'react-router-dom'
 import TicTacToc from './01-tictactoe/TicTacToe'
-import Function from './02-Function/Function'
-import Class from './03-class/Class'
-import ClassComponentApp from './04-components/ClassComponent'
-import Closure from './05-closure/Closure'
-import EventLoop from './06-event-loop/EventLoop'
-import EventHandling from './07-event-handling/EventHandling'
-import LifeCycle from './08-life-cycle/LifeCycle'
-import Ref from './09-Ref/Ref'
+import VirtualDOM from './02-virtual-dom/VirtualDOM'
+import Function from './03-Function/Function'
+import Class from './04-class/Class'
+import ClassComponentApp from './05-components/ClassComponent'
+import Closure from './06-closure/Closure'
+import EventLoop from './07-event-loop/EventLoop'
+import EventHandling from './08-event-handling/EventHandling'
+import LifeCycle from './09-life-cycle/LifeCycle'
+import Ref from './10-Ref/Ref'
+import ReactRendering from './11-react-rendering/ReactRendering'
+import Memoization from './12-memoization/Memoization'
+import ReactHooks from './13-react-hooks/ReactHooks'
+import StateManagement from './14-state-management/StateManagement'
 
 export default function Home() {
   const { id } = useParams()
@@ -15,6 +20,9 @@ export default function Home() {
   switch (id) {
     case 'tictactoe':
       return <TicTacToc />
+
+    case 'virtual-dom':
+      return <VirtualDOM />
 
     case 'function':
       return <Function />
@@ -39,6 +47,18 @@ export default function Home() {
 
     case 'ref':
       return <Ref />
+
+    case 'react-rendering':
+      return <ReactRendering />
+
+    case 'memoization':
+      return <Memoization />
+
+    case 'react-hooks':
+      return <ReactHooks />
+
+    case 'state-management':
+      return <StateManagement />
 
     default:
       return <div className="text-white"></div>
