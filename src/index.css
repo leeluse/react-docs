@@ -135,7 +135,7 @@ main.flex-col.md\:flex-row > section {
 }
 
 /* Normalizing inputs & textareas inside screens */
-main.flex-col.md\:flex-row section input[type="text"],
+main.flex-col.md\:flex-row section input[type='text'],
 main.flex-col.md\:flex-row section textarea {
   background-color: var(--bg) !important;
   color: var(--text) !important;
@@ -144,10 +144,12 @@ main.flex-col.md\:flex-row section textarea {
   padding: 0.5rem 0.75rem !important;
   font-size: 0.875rem !important;
   outline: none !important;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out !important;
 }
 
-main.flex-col.md\:flex-row section input[type="text"]:focus,
+main.flex-col.md\:flex-row section input[type='text']:focus,
 main.flex-col.md\:flex-row section textarea:focus {
   border-color: var(--accent) !important;
   box-shadow: 0 0 0 2px var(--accent-border) !important;
@@ -178,4 +180,3 @@ main.flex-col.md\:flex-row section button:hover {
   border-color: var(--accent) !important;
   color: var(--accent) !important;
 }
-

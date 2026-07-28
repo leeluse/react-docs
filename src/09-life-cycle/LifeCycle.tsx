@@ -1,7 +1,94 @@
+import { useState } from 'react'
 import CodeBlock from '../components/CodeBlock'
 import Example from './Example'
 
+const LIFECYCLE_CODES = {
+  constructor: {
+    title: 'constructor',
+    code: `constructor(props) {
+  super(props);
+  this.state = {
+    counter: 0
+  };
+  // 이벤트 바인딩 등 초기화 작업 수행
+}`,
+    desc: '컴포넌트의 생성자 메서드로 초기 state를 설정하거나 이벤트 핸들러를 바인딩하는 용도로 사용됩니다.',
+  },
+  getDerivedStateFromProps: {
+    title: 'getDerivedStateFromProps',
+    code: `static getDerivedStateFromProps(nextProps, prevState) {
+  if (nextProps.value !== prevState.value) {
+    return { value: nextProps.value };
+  }
+  return null;
+}`,
+    desc: 'props로 받아온 값을 내부 state에 동기화할 때 사용합니다. 마운트와 업데이트 시 렌더링 전에 실행됩니다.',
+  },
+  render: {
+    title: 'render',
+    code: `render() {
+  return (
+    <div>
+      <h1>{this.state.counter}</h1>
+    </div>
+  );
+}`,
+    desc: '컴포넌트의 모양새를 정의하고 가상 DOM을 반환합니다. 라이프사이클 메서드 중 유일한 필수 메서드입니다.',
+  },
+  componentDidMount: {
+    title: 'componentDidMount',
+    code: `componentDidMount() {
+  // 첫 렌더링 완료 및 DOM 반영 후 호출
+  this.timer = setInterval(() => this.tick(), 1000);
+}`,
+    desc: '첫 렌더링을 완전히 마친 뒤 실행됩니다. API 요청, 타이머 등록, 외부 라이브러리 연동 등에 사용됩니다.',
+  },
+  shouldComponentUpdate: {
+    title: 'shouldComponentUpdate',
+    code: `shouldComponentUpdate(nextProps, nextState) {
+  // 특정 상태가 변경되었을 때만 업데이트 진행
+  return nextProps.id !== this.props.id;
+}`,
+    desc: '새로운 props나 state를 받았을 때 리렌더링 진행 여부(true/false)를 결정하여 최적화를 수행합니다.',
+  },
+  getSnapshotBeforeUpdate: {
+    title: 'getSnapshotBeforeUpdate',
+    code: `getSnapshotBeforeUpdate(prevProps, prevState) {
+  // 실제 DOM 반영 직전 상태(예: 스크롤 위치)를 캡처
+  if (prevState.list.length < this.state.list.length) {
+    const list = this.listRef.current;
+    return list.scrollHeight - list.scrollTop;
+  }
+  return null;
+}`,
+    desc: '연산된 결과가 실제 브라우저 DOM에 반영되기 직전 실행되며, 이때의 DOM 상태를 기록해 componentDidUpdate로 전달할 수 있습니다.',
+  },
+  componentDidUpdate: {
+    title: 'componentDidUpdate',
+    code: `componentDidUpdate(prevProps, prevState, snapshot) {
+  // 리렌더링 완료 후 snapshot 값을 바탕으로 조작
+  if (snapshot !== null) {
+    const list = this.listRef.current;
+    list.scrollTop = list.scrollHeight - snapshot;
+  }
+}`,
+    desc: '리렌더링 및 브라우저 DOM 반영 완료 직후 호출되며, 이전 데이터와 대조하여 추가적인 작업을 하기에 적합합니다.',
+  },
+  componentWillUnmount: {
+    title: 'componentWillUnmount',
+    code: `componentWillUnmount() {
+  // 컴포넌트가 DOM에서 사라지기 직전에 정리
+  clearInterval(this.timer);
+}`,
+    desc: '컴포넌트가 브라우저 DOM에서 제거(언마운트)되기 직전에 수행되며, 등록했던 타이머나 리스너를 정리(Clean-up)합니다.',
+  },
+} as const
+
+type SelectedMethod = keyof typeof LIFECYCLE_CODES
+
 export default function LifeCycle() {
+  const [selectedMethod, setSelectedMethod] = useState<SelectedMethod | null>('constructor')
+
   return (
     <div className="text-base-text flex flex-col gap-10 py-6">
       <section className="flex flex-col gap-8">
@@ -79,11 +166,42 @@ export default function LifeCycle() {
           </div>
         </article>
 
-        <div className="py-4 flex flex-col gap-10">
-          <LifeCycleGraph />
-          <Mount />
-          <Update />
-          <Unmount />
+        {/* Layout with sticky side-panel */}
+        <div className="flex flex-col lg:flex-row gap-8 py-4 items-stretch">
+          <div className="flex-1 flex flex-col gap-6">
+            <LifeCycleGraph />
+            <Mount selectedMethod={selectedMethod} onSelectMethod={setSelectedMethod} />
+            <Update selectedMethod={selectedMethod} onSelectMethod={setSelectedMethod} />
+            <Unmount selectedMethod={selectedMethod} onSelectMethod={setSelectedMethod} />
+          </div>
+
+          {/* Code Preview Sidebar */}
+          {selectedMethod && (
+            <div className="w-full lg:w-[380px] shrink-0 border border-slate-200/50 dark:border-zinc-800/50 rounded-xl bg-slate-500/5 dark:bg-zinc-900/40 p-5 flex flex-col gap-4 h-fit lg:sticky lg:top-6 self-start">
+              <div className="flex items-center justify-between border-b border-slate-200/50 dark:border-zinc-800/50 pb-2.5">
+                <h3 className="font-extrabold text-sm sm:text-base text-base-heading">
+                  코드 미리보기
+                </h3>
+                <button
+                  onClick={() => setSelectedMethod(null)}
+                  className="text-xs text-base-text/50 hover:text-base-text transition-colors cursor-pointer"
+                >
+                  닫기
+                </button>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <span className="text-xs font-bold text-primary font-mono bg-pink-500/10 dark:bg-pink-950/20 border border-pink-500/20 px-2 py-0.5 rounded w-fit">
+                  {LIFECYCLE_CODES[selectedMethod].title}()
+                </span>
+                <p className="text-xs text-base-text/70 leading-relaxed">
+                  {LIFECYCLE_CODES[selectedMethod].desc}
+                </p>
+              </div>
+              <div className="mt-1">
+                <CodeBlock content={LIFECYCLE_CODES[selectedMethod].code} />
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="border-t border-base-border/30 pt-8 mt-6 flex flex-col gap-8">
@@ -335,7 +453,13 @@ export function LifeCycleGraph() {
   )
 }
 
-function Mount() {
+function Mount({
+  selectedMethod,
+  onSelectMethod,
+}: {
+  selectedMethod: SelectedMethod | null
+  onSelectMethod: (method: SelectedMethod) => void
+}) {
   return (
     <div className="py-6">
       <h3 className="text-lg sm:text-xl font-bold text-primary mb-3">1. 마운트</h3>
@@ -344,24 +468,46 @@ function Mount() {
       </p>
       <div className="flex flex-col gap-3 max-w-3xl bg-black/5 dark:bg-white/5 p-4 rounded-xl border border-base-border/40">
         <MountMethod title="컴포넌트 만들기" desc="인스턴스 생성" isArrow={true} />
-        <MountMethod title="constructor" desc="생성자 함수 호출" isArrow={true} />
+        <MountMethod
+          title="constructor"
+          desc="생성자 함수 호출"
+          isArrow={true}
+          onShowCode={() => onSelectMethod('constructor')}
+          isSelected={selectedMethod === 'constructor'}
+        />
         <MountMethod
           title="getDerivedStateFromProps"
           desc="Props를 State와 동기화"
           isArrow={true}
+          onShowCode={() => onSelectMethod('getDerivedStateFromProps')}
+          isSelected={selectedMethod === 'getDerivedStateFromProps'}
         />
-        <MountMethod title="render" desc="UI 렌더링" isArrow={true} />
+        <MountMethod
+          title="render"
+          desc="UI 렌더링"
+          isArrow={true}
+          onShowCode={() => onSelectMethod('render')}
+          isSelected={selectedMethod === 'render'}
+        />
         <MountMethod
           title="componentDidMount"
           desc="첫 마운트 직후 사이드 이펙트 실행"
           isArrow={false}
+          onShowCode={() => onSelectMethod('componentDidMount')}
+          isSelected={selectedMethod === 'componentDidMount'}
         />
       </div>
     </div>
   )
 }
 
-function Update() {
+function Update({
+  selectedMethod,
+  onSelectMethod,
+}: {
+  selectedMethod: SelectedMethod | null
+  onSelectMethod: (method: SelectedMethod) => void
+}) {
   return (
     <div className="py-6">
       <h3 className="text-lg sm:text-xl font-bold text-primary mb-3">2. 업데이트</h3>
@@ -384,26 +530,54 @@ function Update() {
       </div>
       <div className="flex flex-col gap-3 max-w-3xl bg-black/5 dark:bg-white/5 p-4 rounded-xl border border-base-border/40">
         <UpdateMethod title="업데이트 요인 발생" desc="Props/State 등 상태 변화" isArrow={true} />
-        <UpdateMethod title="getDerivedStateFromProps" desc="Props 데이터 동기화" isArrow={true} />
+        <UpdateMethod
+          title="getDerivedStateFromProps"
+          desc="Props 데이터 동기화"
+          isArrow={true}
+          onShowCode={() => onSelectMethod('getDerivedStateFromProps')}
+          isSelected={selectedMethod === 'getDerivedStateFromProps'}
+        />
         <UpdateMethod
           title="shouldComponentUpdate"
           desc="업데이트 작업 진행 여부 결정 (true/false)"
           isArrow={true}
+          onShowCode={() => onSelectMethod('shouldComponentUpdate')}
+          isSelected={selectedMethod === 'shouldComponentUpdate'}
         />
-        <UpdateMethod title="render" desc="재렌더링" isArrow={true} />
+        <UpdateMethod
+          title="render"
+          desc="재렌더링"
+          isArrow={true}
+          onShowCode={() => onSelectMethod('render')}
+          isSelected={selectedMethod === 'render'}
+        />
         <UpdateMethod
           title="getSnapshotBeforeUpdate"
           desc="실제 DOM 반영 바로 전 상태 캡처"
           isArrow={true}
+          onShowCode={() => onSelectMethod('getSnapshotBeforeUpdate')}
+          isSelected={selectedMethod === 'getSnapshotBeforeUpdate'}
         />
         <UpdateMethod title="DOM 업데이트" desc="브라우저 상에 변경된 DOM 출력" isArrow={true} />
-        <UpdateMethod title="componentDidUpdate" desc="업데이트 완료 직후 조작" isArrow={false} />
+        <UpdateMethod
+          title="componentDidUpdate"
+          desc="업데이트 완료 직후 조작"
+          isArrow={false}
+          onShowCode={() => onSelectMethod('componentDidUpdate')}
+          isSelected={selectedMethod === 'componentDidUpdate'}
+        />
       </div>
     </div>
   )
 }
 
-function Unmount() {
+function Unmount({
+  selectedMethod,
+  onSelectMethod,
+}: {
+  selectedMethod: SelectedMethod | null
+  onSelectMethod: (method: SelectedMethod) => void
+}) {
   return (
     <div className="py-6">
       <h3 className="text-lg sm:text-xl font-bold text-primary mb-3">3. 언마운트</h3>
@@ -412,7 +586,13 @@ function Unmount() {
       </p>
       <div className="flex flex-col gap-3 max-w-3xl bg-black/5 dark:bg-white/5 p-4 rounded-xl border border-base-border/40">
         <UnmountMethod title="언마운트 작업 실행" desc="DOM에서 컴포넌트 탈착" isArrow={true} />
-        <UnmountMethod title="componentWillUnmount" desc="클린업 정리 작업 전송" isArrow={false} />
+        <UnmountMethod
+          title="componentWillUnmount"
+          desc="클린업 정리 작업 전송"
+          isArrow={false}
+          onShowCode={() => onSelectMethod('componentWillUnmount')}
+          isSelected={selectedMethod === 'componentWillUnmount'}
+        />
       </div>
     </div>
   )
@@ -437,15 +617,35 @@ export function MountMethod({
   title,
   desc,
   isArrow,
+  onShowCode,
+  isSelected,
 }: {
   title: string
   desc: string
   isArrow: boolean
+  onShowCode?: () => void
+  isSelected?: boolean
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-pink-500/5 border border-pink-500/20 rounded-lg">
-        <span className="font-bold text-primary text-sm min-w-[180px]">{title}</span>
+      <div
+        className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-pink-500/5 border rounded-lg transition-all ${
+          isSelected
+            ? 'border-pink-500 bg-pink-500/10 shadow-[0_0_12px_rgba(236,72,153,0.2)]'
+            : 'border-pink-500/20'
+        }`}
+      >
+        <div className="flex items-center gap-2.5 min-w-[210px] justify-between sm:justify-start">
+          <span className="font-bold text-primary text-sm">{title}</span>
+          {onShowCode && (
+            <button
+              onClick={onShowCode}
+              className="px-2 py-0.5 text-[10px] font-semibold border rounded border-pink-500/30 text-primary bg-pink-500/5 hover:bg-pink-500/25 transition-all font-mono cursor-pointer"
+            >
+              코드 보기
+            </button>
+          )}
+        </div>
         <span className="text-xs sm:text-sm text-slate-500 flex-1">{desc}</span>
       </div>
       {isArrow && (
@@ -461,17 +661,35 @@ export function UnmountMethod({
   title,
   desc,
   isArrow,
+  onShowCode,
+  isSelected,
 }: {
   title: string
   desc: string
   isArrow: boolean
+  onShowCode?: () => void
+  isSelected?: boolean
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-yellow-500/5 border border-yellow-500/20 rounded-lg">
-        <span className="font-bold text-yellow-600 dark:text-yellow-400 text-sm min-w-[180px]">
-          {title}
-        </span>
+      <div
+        className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-yellow-500/5 border rounded-lg transition-all ${
+          isSelected
+            ? 'border-yellow-500 bg-yellow-500/10 shadow-[0_0_12px_rgba(234,179,8,0.2)]'
+            : 'border-yellow-500/20'
+        }`}
+      >
+        <div className="flex items-center gap-2.5 min-w-[210px] justify-between sm:justify-start">
+          <span className="font-bold text-yellow-600 dark:text-yellow-400 text-sm">{title}</span>
+          {onShowCode && (
+            <button
+              onClick={onShowCode}
+              className="px-2 py-0.5 text-[10px] font-semibold border rounded border-yellow-500/30 text-yellow-600 dark:text-yellow-400 bg-yellow-500/5 hover:bg-yellow-500/25 transition-all font-mono cursor-pointer"
+            >
+              코드 보기
+            </button>
+          )}
+        </div>
         <span className="text-xs sm:text-sm text-slate-500 flex-1">{desc}</span>
       </div>
       {isArrow && (
@@ -487,17 +705,35 @@ export function UpdateMethod({
   title,
   desc,
   isArrow,
+  onShowCode,
+  isSelected,
 }: {
   title: string
   desc: string
   isArrow: boolean
+  onShowCode?: () => void
+  isSelected?: boolean
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-blue-500/5 border border-blue-500/20 rounded-lg">
-        <span className="font-bold text-sky-600 dark:text-sky-400 text-sm min-w-[180px]">
-          {title}
-        </span>
+      <div
+        className={`flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3 bg-blue-500/5 border rounded-lg transition-all ${
+          isSelected
+            ? 'border-sky-500 bg-blue-500/10 shadow-[0_0_12px_rgba(14,165,233,0.2)]'
+            : 'border-blue-500/20'
+        }`}
+      >
+        <div className="flex items-center gap-2.5 min-w-[210px] justify-between sm:justify-start">
+          <span className="font-bold text-sky-600 dark:text-sky-400 text-sm">{title}</span>
+          {onShowCode && (
+            <button
+              onClick={onShowCode}
+              className="px-2 py-0.5 text-[10px] font-semibold border rounded border-sky-500/30 text-sky-600 dark:text-sky-400 bg-blue-500/5 hover:bg-blue-500/25 transition-all font-mono cursor-pointer"
+            >
+              코드 보기
+            </button>
+          )}
+        </div>
         <span className="text-xs sm:text-sm text-slate-500 flex-1">{desc}</span>
       </div>
       {isArrow && (

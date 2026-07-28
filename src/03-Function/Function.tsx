@@ -164,9 +164,7 @@ function HowToFunction() {
 
       <article className="text-sm sm:text-base flex flex-col gap-2">
         <p className="font-semibold text-base sm:text-lg text-base-heading">• Function 생성자</p>
-        <CodeBlock
-          content={`const add = new Function('a', 'b', 'return a + b')\n\nadd(10, 24)`}
-        />
+        <CodeBlock content={`const add = new Function('a', 'b', 'return a + b')\n\nadd(10, 24)`} />
         <p className="leading-relaxed">
           new 키워드를 사용해 함수를 생성하고 매개변수, 함수의 몸통을 모두 문자열로 작성해야 한다는
           특징으로 보았을 때 이는 좋은 선택은 아니다.

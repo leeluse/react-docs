@@ -1165,7 +1165,10 @@ export function Table({ data }: { data: { label: string; value: string }[] }) {
       <table className="w-full border-collapse text-xs sm:text-sm text-base-text">
         <tbody>
           {data.map((item) => (
-            <tr key={item.label} className="border-b border-base-border/30 last:border-0 hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+            <tr
+              key={item.label}
+              className="border-b border-base-border/30 last:border-0 hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+            >
               <td className="px-3 py-2.5 font-mono text-primary font-bold bg-black/5 dark:bg-white/5 w-1/3">
                 {item.label}
               </td>
