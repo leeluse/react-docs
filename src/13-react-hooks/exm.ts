@@ -1,3 +1,99 @@
+export const USEEFFECT_EXM8 = `
+useEffect(async () => {
+  //useEffect에 async 함수를 넣어주면 아래 에러 발생
+  // Effect callbacks are synchronous to prevent race conditions
+  const response = await fetch('https://some.data.com')
+  const data = await response.json()
+  setData(data)
+}, [])
+`
+
+export const USEEFFECT_EXM7_3 = `
+function Component({id}: {id: string}) {
+  const [info, setInfo] = useState(null)
+
+  useEffect(() => {
+    const controller = new AbortController()
+    ;(
+    async () => {
+      const result = await fetchInfo(id, {signal: controller.signal})
+      setInfo(info)
+      } )()
+    
+  }, [id])
+  return <div>...</div>
+}
+`
+
+export const USEEFFECT_EXM7_2 = `
+function Component({id}: {id: string}) {
+  const [info, setInfo] = useState(null)
+  const constrollerRef = useRef(0)
+  const fetchInformation = useCallback(async (fetchId: string) => {
+    constrollerRef.current?.abort()
+    constrollerRef.current = new AbortController()
+
+    const result = await fetchInfo(fetchId, { signal: controllerRef.signal })
+    setInfo(await result.json())
+
+    }, [])
+
+    useEffect(() => {
+      fetchInformation(id)
+      return () => {
+        controllerRef.current?.abort()
+      }
+    }, [id, fetchInformation])
+    return <div>...</div>
+}
+`
+
+export const USEEFFECT_EXM7_1 = `
+useEffect(
+  function logActiveUser() {
+    logging(user.id)
+}, [user.id])
+`
+
+export const USEEFFECT_EXM6 = `
+const MyReact = (function () {
+  const global = {
+    hooks: [],
+  }
+
+  let index = 0
+
+  function useEffect(callback, dependencies) {
+    const hooks = global.hooks
+
+    // 이전 훅 정보가 있는지 확인한다
+    const previousDependencies = hooks[index]
+
+    // 변경 됐는 지 확인
+    // 이전 값이 있다면 이전 값을 얕은 비교로 비교해 변경이 일어났는지 확인한다
+    // 이전 값이 없다면 최초 실행이므로 변경이 일어난 것으로 간주해 실행을 유도한다
+    const isDependenciesChanged = previousDependencies
+      ? dependencies.some(
+          (value, idx) =>
+            !Object.is(value, previousDependencies[idx]),
+        )
+      : true
+
+  // 변경이 일어났다면 첫 번째 인수인 콜백 함수를 실행
+    if (isDependenciesChanged) {
+      callback()
+    }
+
+  //  현재 의존성을 훅에 다시 저장한다
+    hooks[index] = dependencies
+  // 다음 훅이 일어날 때를 대비하기 위해 index 추가한다
+    index++
+  }
+
+  return { useEffect }
+})()
+`
+
 export const USEEFFECT_EXM5 = `
 function Component() {
   console.log('렌더링됨')

@@ -6,6 +6,11 @@ import {
   USEEFFECT_EXM3,
   USEEFFECT_EXM4,
   USEEFFECT_EXM5,
+  USEEFFECT_EXM6,
+  USEEFFECT_EXM7_1,
+  USEEFFECT_EXM7_2,
+  USEEFFECT_EXM7_3,
+  USEEFFECT_EXM8,
 } from './exm'
 
 export default function ReactUseEffect() {
@@ -155,10 +160,14 @@ return (
         <h4 className="font-bold text-white">의존성 배열이 없는 useEffect를 쓰는 이유?</h4>
         <p>의존성 배열이 없다면, 매 렌더링마다 실행될 텐데 굳이 써야 할까? 싶을 수 있다</p>
         <CodeBlock content={USEEFFECT_EXM5} />
-        <p>1. 서버 사이드 관점에서 useEffct는 클라이언트 사이드에서 실행되는 것을 보장해 준다</p>
         <p>
-          2. useEffect의 사이드 이펙트는 렌더링이 완료된 이후 실행되기 때문에 1번과 다르게 서버
-          사이드 렌더링의 경우 서버에서도 실행된다
+          1. 서버 사이드 관점에서 useEffct는{' '}
+          <span className="text-emerald-400">클라이언트 사이드에서 실행되는 것을 보장해 준다</span>
+        </p>
+        <p>
+          2.{' '}
+          <span className="text-emerald-400">useEffect는 컴포넌트 렌더링이 완료된 이후 실행</span>
+          되기 때문에 1번과 다르게 서버 사이드 렌더링의 경우 서버에서도 실행된다
         </p>
         <p>
           이 작업은 컴포넌트의 반환을 지연한다 {`->`}{' '}
@@ -167,6 +176,112 @@ return (
           </span>
         </p>
       </div>
+      <div className="py-5">
+        <h3 className="font-bold text-primary border-l-2 pl-3">useEffect Hook 구현 코드 예제</h3>
+        <CodeBlock content={USEEFFECT_EXM6} />
+        <p>* 실제 리액트 코드에서는 useReducer로 구현되어 있다</p>
+      </div>
+      <article>
+        <h4 className="font-bold text-white">useEffect 사용 시 주의할 점</h4>
+        <ul className="list-decimal list-inside py-3">
+          <li className="py-3">
+            <span className="bg-slate-500/20 rounded-lg px-3 py-1 text-white">
+              eslint-disable-line react-hooks/exhaustive-deps 주석을 자제하라
+            </span>
+            <br />
+            <span className="text-sm">
+              ESLint 룰은 useEffect 인수 내부에서 사용하는 값 중 의존성 배열에 포함돼 있지 않은 값이
+              있을 시 경고를 발생시킴
+            </span>
+          </li>
+          <li className="py-3">
+            <span className="bg-slate-500/20 rounded-lg px-3 py-1 text-white">
+              useEffect의 첫 번째 인수에 함수명을 부여하라
+            </span>
+            <br />
+            <span className="text-sm ">
+              내부 로직이 복잡할 경우 해당 useEffect가 뭘 하는 코드인지 파악이 힘듬 {`-> `}
+              <span className="text-red-400">책임을 최소한으로 좁히고 목적이 명확해짐</span>
+            </span>
+            <div className="w-fit pl-5">
+              <CodeBlock content={USEEFFECT_EXM7_1} />
+            </div>
+          </li>
+          <li className="py-3">
+            <span className="bg-slate-500/20 rounded-lg px-3 py-1 text-white">
+              거대한 useEffect를 만들지 마라
+            </span>
+            <br />
+            <span className="text-sm ">
+              의존성 배열을 바탕으로 렌더링 시 변경될 때마다 사이드 이펙트 발생 시 성능에 악영향{' '}
+              {`-> `}
+              <span className="text-red-400">
+                적은 의존성 배열을 사용하는 여러 개의 useEffect로 분리하기
+              </span>
+            </span>
+            <div className="w-fit pl-5"></div>
+          </li>
+          <li className="py-3">
+            <span className="bg-slate-500/20 rounded-lg px-3 py-1 text-white">
+              불필요한 외부 함수를 만들지 마라
+            </span>
+            <br />
+            <span className="text-sm ">
+              콜백 또한 불필요하게 존재해서는 안 됨
+              <br />
+              적은 의존성 배열을 사용하는 여러 개의 useEffect로 분리하기
+            </span>
+            <div className="w-fit pl-5">
+              <CodeBlock content={USEEFFECT_EXM7_2} />
+              <p>
+                수정 전: props를 받아서 그 정보를 바탕으로 API를 호출하지만 useEffect 밖에서
+                선언하다 보니 불필요한 코드와 가독성 하락
+              </p>
+              <CodeBlock content={USEEFFECT_EXM7_3} />
+              <p>
+                수정 후: 외부에 있던 관련 함수를 내부로 가져왔더니 간결하지고, 불필요한 의존성도
+                줄였음
+              </p>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <article>
+        <h4 className="text-primary font-semibold">
+          useEffect의 콜백 인수로 비동기 함수를 넣을 수 없는 이유
+        </h4>
+        <div className="flex flex-col sm:flex-row gap-5">
+          <div className="flex-1">
+            <CodeBlock content={USEEFFECT_EXM8} />
+          </div>
+          <div className="flex flex-col justify-between">
+            <p>
+              useEffect 내부에서 state를 결과에 따라 업데이트 하는 로직이 있을 경우{' '}
+              <span className="text-primary">경쟁 상태(race condition)</span> 발생 가능성 존재
+            </p>
+            <p className="flex flex-col gap-2  items-center">
+              <span className="border-slate-300 rounded text-white text-center w-full text-sm">
+                state 응답 10초 소모
+              </span>
+              <Arrow />
+              <span className="border-slate-300 rounded text-white text-center w-full text-sm">
+                1초 뒤 바뀐 state 기반 응답 도착
+              </span>
+              <Arrow />
+              <span className="border-slate-300 rounded text-white text-center w-full text-sm">
+                이전 stale한 state 결과가 나옴
+              </span>
+            </p>
+          </div>
+        </div>
+        <p className="text-white">비동기를 실행하는 방법?</p>
+        <p>
+          {`->`} 인수로 비동기 함수를 지정하는 게 불가능한 것일 뿐, useEffect 내부에서{' '}
+          <span className="code-tag pink">비동기 함수를 선언해 실행</span>하거나{' '}
+          <span className="code-tag pink">즉시 실행 비동기 함수</span>를 만들어 사용하면 된다
+        </p>
+      </article>
     </section>
   )
 }
