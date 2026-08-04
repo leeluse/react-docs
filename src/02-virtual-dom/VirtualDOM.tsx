@@ -174,7 +174,7 @@ export function VirtualDOMBackground() {
       <h2 className="font-bold text-xl sm:text-2xl text-primary">가상 DOM</h2>
       <p className="font-semibold text-base sm:text-lg text-base-heading my-2">• 가상 DOM의 등장</p>
       <p>
-        어플리케이션이 커지면서 사용자 인터랙션을 통해 다양한 정보를 노출하게끔 함 {`->`} 렌더링
+        어플리케이션이 커지면서 사용자 인터랙션을 통해 다양한 정보를 노출하게끔 함 &rarr; 렌더링
         완료 이후에도 사용자의 인터랙션으로 웹페이지가 변경되는 상황도 고려한{' '}
         <span className="text-white">
           싱글 페이지 어플리케이션(Single Page Application)이 보편화되었음
@@ -208,7 +208,7 @@ export function ReactFiber() {
       </p>
       <p>리액트에서 관리하는 평범한 자바스크립트 객체 / 파이버는 파이버 재조정자가 관리</p>
       <p className="text-primary">
-        {`->`} 가상 DOM과 실제 DOM을 비교해 변경사항을 수집하고, 둘 차이를 갖고서 렌더링 요청을 한다
+        &rarr; 가상 DOM과 실제 DOM을 비교해 변경사항을 수집하고, 둘 차이를 갖고서 렌더링 요청을 한다
       </p>
       <p className="text-sm">
         재조정(reconciliation): 가상 DOM과 실제 DOM을 비교하는 작업(알고리즘)
@@ -307,7 +307,7 @@ export function ReactFiber() {
         </p>
         <p className="leading-relaxed my-2 text-sm sm:text-base">
           파이버 작업이 끝난 뒤 리액트는 포인터만 변경해 workInProgress 트리를 현재 트리로 바꾼다{' '}
-          {`->`} 이를 <span className="text-pink-500">더블 버퍼링</span>이라고 함
+          &rarr; 이를 <span className="text-pink-500">더블 버퍼링</span>이라고 함
         </p>
       </div>
       <FiberTreeVisualizer />

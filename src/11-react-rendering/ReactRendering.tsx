@@ -139,7 +139,7 @@ export function ReactRenderingProcess() {
       <div className="p-4 my-3 flex flex-col gap-3">
         <p>
           위 과정을 거친 뒤 리액트의 각 컴포넌트 렌더링 결과물을 기반으로 새 가상 DOM과 기존 V-DOM을
-          비교해 실제 DOM에 반영하기 위한 변경사항을 수집 {`->`}
+          비교해 실제 DOM에 반영하기 위한 변경사항을 수집 &rarr;
           <span className="text-white mx-2">이것이 재조정(Reconcilation)</span>
         </p>
       </div>
@@ -589,35 +589,48 @@ export function CommonRenderingScenario() {
           <p className="font-bold text-base-heading mb-1 border-l-2 pl-5">일반적인 렌더링 흐름:</p>
           <ol className="list-decimal pl-10 space-y-1.5 mt-2">
             <li>
-              <strong>B 컴포넌트</strong>의 <code className="bg-black/40 px-1 py-0.5 rounded text-pink-400">setState</code> 호출 → B의 리렌더링 작업이 렌더링 큐에 들어갑니다.
+              <strong>B 컴포넌트</strong>의{' '}
+              <code className="bg-black/40 px-1 py-0.5 rounded text-pink-400">setState</code> 호출 →
+              B의 리렌더링 작업이 렌더링 큐에 들어갑니다.
             </li>
             <li>
               리액트는 트리 최상단(<strong>A 컴포넌트</strong>)부터 아래로 경로를 탐색합니다.
             </li>
             <li>
-              <strong>A 컴포넌트</strong>는 업데이트 대상이 아니므로 <strong>작업 없이 통과(스킵)</strong>합니다.
+              <strong>A 컴포넌트</strong>는 업데이트 대상이 아니므로{' '}
+              <strong>작업 없이 통과(스킵)</strong>합니다.
             </li>
             <li>
-              하위의 <strong>B 컴포넌트</strong>가 업데이트 필요하다고 체크되어 있으므로 <strong>B 리렌더링 수행</strong>.
+              하위의 <strong>B 컴포넌트</strong>가 업데이트 필요하다고 체크되어 있으므로{' '}
+              <strong>B 리렌더링 수행</strong>.
             </li>
             <li>
               B 컴포넌트가 리렌더링되며 하위의 <strong>C 컴포넌트</strong>를 새로 반환합니다.
             </li>
             <li>
-              <strong>C 컴포넌트</strong>는 전달받는 props인 <code className="bg-black/40 px-1 py-0.5 rounded text-blue-400">number</code>가 업데이트되었으므로 리렌더링 대상으로 결정됩니다.
+              <strong>C 컴포넌트</strong>는 전달받는 props인{' '}
+              <code className="bg-black/40 px-1 py-0.5 rounded text-blue-400">number</code>가
+              업데이트되었으므로 리렌더링 대상으로 결정됩니다.
             </li>
             <li>
               C 컴포넌트가 리렌더링되며 하위의 <strong>D 컴포넌트</strong>를 새로 반환합니다.
             </li>
             <li>
-              <strong>D 컴포넌트</strong>는 props 변경이 전혀 없으나, <strong>부모(C)가 리렌더링되었기 때문에 강제로 업데이트(리렌더링)</strong>됩니다.
+              <strong>D 컴포넌트</strong>는 props 변경이 전혀 없으나,{' '}
+              <strong>부모(C)가 리렌더링되었기 때문에 강제로 업데이트(리렌더링)</strong>됩니다.
             </li>
           </ol>
         </div>
         <div className="pt-2">
-          <p className="font-bold text-base-heading mb-1 border-l-2 pl-5">D 컴포넌트에 memo를 추가할 경우:</p>
+          <p className="font-bold text-base-heading mb-1 border-l-2 pl-5">
+            D 컴포넌트에 memo를 추가할 경우:
+          </p>
           <p className="pl-5 mt-2">
-            만약 D 컴포넌트를 <code className="bg-black/40 px-1 py-0.5 rounded text-emerald-400">React.memo</code>로 감싸준다면, 부모 C가 리렌더링되더라도 <strong>D의 props가 변경되지 않았으므로 8단계의 D 리렌더링은 건너뛰게(Skip)</strong> 됩니다.
+            만약 D 컴포넌트를{' '}
+            <code className="bg-black/40 px-1 py-0.5 rounded text-emerald-400">React.memo</code>로
+            감싸준다면, 부모 C가 리렌더링되더라도{' '}
+            <strong>D의 props가 변경되지 않았으므로 8단계의 D 리렌더링은 건너뛰게(Skip)</strong>{' '}
+            됩니다.
           </p>
           <div className="mt-3 pl-5 max-w-md">
             <CodeBlock content={MEMO_CODE_EXM} />

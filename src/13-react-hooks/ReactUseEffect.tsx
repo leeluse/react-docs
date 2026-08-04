@@ -17,7 +17,7 @@ export default function ReactUseEffect() {
   return (
     <section className="mt-10">
       <h2 className="font-bold text-xl sm:text-2xl text-primary pb-2">useEffect</h2>
-      <p className="flex flex-col pt-4">
+      <div className="flex flex-col pt-4">
         <h4 className="font-bold text-slate-300 pb-1 border-b mb-1 border-b-slate-600/30">
           useEffect의 정확한 정의
         </h4>
@@ -25,13 +25,13 @@ export default function ReactUseEffect() {
           useEffect는 어플리케이션 내 컴포넌트의 여러 값들을 활용해 동기적으로 부수 효과를 만드는
           매커니즘이다
         </span>
-      </p>
+      </div>
 
       <p className="border-l-2 border-primary pl-2 py-2 text-white bg-primary/10 mt-5">
         useEffect 훅 사용법
       </p>
       <p className="pt-3">
-        • 두 개의 인수를 받으며 첫 번째는 콜백, 두 번째는 의존성 배열이다 {`->`}
+        • 두 개의 인수를 받으며 첫 번째는 콜백, 두 번째는 의존성 배열이다 &rarr;
         <span className="bg-sky-400/20 mx-2 text-sky-100">
           의존성 배열의 값이 변경되면 첫 번째 콜백을 실행한다
         </span>
@@ -63,7 +63,7 @@ export default function ReactUseEffect() {
         </div>
         <ul className="flex-1 max-h-fit  px-4 mx-4 ">
           <li>
-            버튼 클릭 시 counter의 값이 올라감 {`->`} 즉 함수 컴포넌트는 렌더링 시마다 고유의{' '}
+            버튼 클릭 시 counter의 값이 올라감 &rarr; 즉 함수 컴포넌트는 렌더링 시마다 고유의{' '}
             <code className="text-red-300">state</code>와{' '}
             <code className="text-red-300">props</code>를 갖고 있음
             <code className="whitespace-pre-wrap bg-black/20 p-2 rounded-lg text-xs inline-block text-emerald-500/80">
@@ -170,7 +170,7 @@ return (
           되기 때문에 1번과 다르게 서버 사이드 렌더링의 경우 서버에서도 실행된다
         </p>
         <p>
-          이 작업은 컴포넌트의 반환을 지연한다 {`->`}{' '}
+          이 작업은 컴포넌트의 반환을 지연한다 &rarr;{' '}
           <span className="bg-emerald-200/20 text-white p-1">
             무거운 작업일수록 렌더링을 방해해 성능 악화
           </span>
@@ -277,7 +277,7 @@ return (
         </div>
         <p className="text-white">비동기를 실행하는 방법?</p>
         <p>
-          {`->`} 인수로 비동기 함수를 지정하는 게 불가능한 것일 뿐, useEffect 내부에서{' '}
+          &rarr; 인수로 비동기 함수를 지정하는 게 불가능한 것일 뿐, useEffect 내부에서{' '}
           <span className="code-tag pink">비동기 함수를 선언해 실행</span>하거나{' '}
           <span className="code-tag pink">즉시 실행 비동기 함수</span>를 만들어 사용하면 된다
         </p>

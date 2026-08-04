@@ -219,7 +219,7 @@ export function SingleThread() {
               넷스카이프 개발자 브렌던 아이크
               <br />• 브라우저에서 아주 간단한 스크립트를 지원할 목적으로 Live Script(JavaScript의
               전신)를 만듬
-              <br />• 10일 만에 첫 버전 완성 {`->`} 이미지 로드, 경고창, 폼 처리 등의 기초적 역할
+              <br />• 10일 만에 첫 버전 완성 &rarr; 이미지 로드, 경고창, 폼 처리 등의 기초적 역할
               제공
             </span>
           </p>
@@ -289,7 +289,7 @@ export function EventLoopMain() {
         자바스크립트 런타임 외부에서 자바스크립트의 비동기 실행을 돕기 위해 만들어진 장치
       </p>
       <p className="flex gap-2">
-        <span>JS 런타임 {`->`}</span>
+        <span>JS 런타임 &rarr;</span>
         <span className="code-tag pink">V8</span>
         <span className="code-tag pink">Spider Monkey</span>
       </p>
@@ -422,7 +422,7 @@ export function EventLoopMain() {
             <span className="text-white font-semibold">실행해야 할 태스크의 Set 형태의 집합</span>
             이며, 이벤트 루프는 이러한 태스크 큐를 한 개 이상 갖고 있음
             <br />
-            <span>실행해야 할 태스크</span> {`->`}{' '}
+            <span>실행해야 할 태스크</span> &rarr;{' '}
             <span className="code-tag blue">동기 함수의 콜백 함수</span>,{' '}
             <span className="code-tag blue">이벤트 핸들러</span>,{' '}
             <span className="code-tag pink">setTimeout</span>,{' '}
@@ -435,9 +435,9 @@ export function EventLoopMain() {
               반복해서 확인
             </span>
             <br />
-            <span>호출 스택이 비어 있을 경우 {`->`} 태스크 큐 확인</span>
+            <span>호출 스택이 비어 있을 경우 &rarr; 태스크 큐 확인</span>
             <span>
-              {`->`} 태스크 큐에서 가장 오래된 것부터 순차적으로 꺼내와서 실행 {`->`} 태스크 큐가 빌
+              &rarr; 태스크 큐에서 가장 오래된 것부터 순차적으로 꺼내와서 실행 &rarr; 태스크 큐가 빌
               때까지 반복
             </span>
           </p>
@@ -469,7 +469,7 @@ export function EventLoopMain() {
             <span className="text-white font-semibold">기존의 태스크 큐와 다른 태스크를 처리</span>
             한다
             <br />
-            <span>실행해야 할 태스크</span> {`->`} <span className="code-tag blue">Promise</span>{' '}
+            <span>실행해야 할 태스크</span> &rarr; <span className="code-tag blue">Promise</span>{' '}
             <span className="code-tag pink">queueMicroTask</span>{' '}
             <span className="code-tag pink">process.nextTick</span>{' '}
             <span className="code-tag pink">MutationObserver</span> 등을 의미

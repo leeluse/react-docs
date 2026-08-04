@@ -85,7 +85,7 @@ export default function ReactUseState() {
           <div className="flex flex-1 flex-col">
             <CodeBlock content={USESTATE_EXM5} />
           </div>
-          <p className="flex flex-1 flex-col gap-3">
+          <div className="flex flex-1 flex-col gap-3">
             <span className="font-bold mt-2 text-pink-400">상태가 변경되는 이유</span>
             <code className="whitespace-pre-wrap bg-black/20 p-2 rounded-lg inline-block text-emerald-500/80">
               {`const [value, setValue] = useState(0)\nsetValue(1)\n\nconsole.log(value) // 1`}
@@ -95,7 +95,7 @@ export default function ReactUseState() {
               리액트의 <span className="text-primary">클로저</span>를 이용해서, 함수가 종료된
               이후에도 스코프 내부의 지역 변수를 참조하도록 하는 것이다
             </p>
-          </p>
+          </div>
         </div>
         <div className="py-5">
           <h3 className="font-bold text-primary border-l-2 pl-3">

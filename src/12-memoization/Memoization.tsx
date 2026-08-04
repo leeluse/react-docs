@@ -131,7 +131,7 @@ export function ReactMemo() {
       </p>
       <p>
         <code className="font-bold">Memoization</code> :{' '}
-        <span className="border-b">CPU와 메모리</span>를 사용해 이전 렌더링 결과를 저장 {`->`}{' '}
+        <span className="border-b">CPU와 메모리</span>를 사용해 이전 렌더링 결과를 저장 &rarr;{' '}
         리렌더링할 필요 없을 경우 이전 결과물을 사용하도록 함
         <br />
         <span className="px-2 rounded bg-emerald-400/20 text-emerald-100">
@@ -178,7 +178,7 @@ export function UseMemoAndUseCallback() {
         <br />
         <span>
           객체가 재생성되기 때문에 참조가 달라지는데, 달라진 참조 값이 useEffect의 의존성 배열에서
-          사용된다면? {`->`} 리렌더링을 유발한다
+          사용된다면? &rarr; 리렌더링을 유발한다
         </span>
       </p>
       <p className="text-primary font-semibold pt-5">• useMath 훅</p>
