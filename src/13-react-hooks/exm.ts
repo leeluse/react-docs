@@ -1,3 +1,51 @@
+export const USECALLBACK_EXM2 = `
+  const toggle1 = useCallback(() => {
+    setStatus1(!status1)
+  }, [status1])
+
+  const toggle2 = useCallback(() => {
+    setStatus2(!status2)
+  }, [status2])
+  `
+
+export const USECALLBACK_EXM1 = `
+  const ChildComponent = memo(({ name, value, onChange }) => {
+    // 렌더링이 수행되는지 확인하기 위해 넣음
+    useEffect(() => {
+      console.log('rendering!, name)
+    })
+
+    return (
+      <>
+        <h1>{name}</h1>
+        <button onClick={onClick}>toggle</button>
+      </>
+    )
+  })
+
+  function App() {
+    const [status1, setStatus1] = useState(false)
+    const [status2, setStatus2] = useState(false)
+
+  }
+
+  const toggle1 = () => {
+    setStatus1(!status1)
+  }
+
+  const toggle2 = () => {
+    setStatus2(!status2)
+  }
+
+  return (
+    <>
+      <ChildComponent name="1" value={status1} onChange={toggle1}/>
+      <ChildComponent name="2" value={status2} onChange={toggle2}/>
+    </>
+  )
+}
+`
+
 export const USEMEMO_EXM2 = `
   function ExpensiveComponent({ value }) {
     useEffect(() => {
