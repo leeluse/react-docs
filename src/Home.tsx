@@ -18,6 +18,7 @@ import ReactUseEffect from './13-react-hooks/ReactUseEffect'
 import ReactUseMemo from './13-react-hooks/ReactUseMemo'
 import ReactUseCallback from './13-react-hooks/ReactUseCallback'
 import ReactUseRef from './13-react-hooks/ReactUseRef'
+import ReactUseContext from './13-react-hooks/ReactUseContext'
 
 export default function Home() {
   const { id, subId } = useParams()
@@ -72,6 +73,8 @@ export default function Home() {
             return <ReactUseCallback />
           case 'use-ref':
             return <ReactUseRef />
+          case 'use-context':
+            return <ReactUseContext />
           default:
             return <Navigate to="/react-hooks/use-state" replace />
         }

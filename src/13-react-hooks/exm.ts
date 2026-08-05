@@ -1,3 +1,66 @@
+export const USECONTEXT_EXM2 = `
+const MyContext = createContext<{ hello: string } | undefined>(undefined)
+
+function ParentComponent({
+  children,
+  text
+}: PRopsWithChildren) {
+  return (
+    <MyContext.Provider value={{ hello: 'react' }}>{children}</MyContext.Provider>
+  )
+}
+
+function useMyContext() {
+  const context = useContext(MyContext)
+  if(context === undefined) {
+    throw new Error(
+      'useMyContext는 ContextProvider 내부에서만 사용할 수 있습니다.',
+    )
+  }
+  return context
+}
+
+function ChildComponent() {
+  // 타입이 명확히 설정돼 있어 굳이 undefined 체크를 하지 않아도 된다
+  // 이 컴포넌트가 Provider 하위에 없다면 에러가 발생할 것이다
+  const { hello } = useMycontext()
+  return <>{hello}</>
+}
+
+
+function ParentComponent() {
+  return (
+    <>
+      <ContextProvider text='react'>
+        <ChildComponent />
+      </Context.Provider>
+    </>
+  )
+}
+`
+
+export const USECONTEXT_EXM1 = `
+const Context = createContext<{ hello: string } | undefined>(undefined)
+
+function ParentComponent() {
+  return (
+    <>
+    <Context.Provider value={{ hello: 'react' }}>
+      <Context.Provider value={{ hello: 'react' }}>
+        <Child />
+      </Context.Provider>
+    </Context.Provider>
+    </>
+  )
+}
+function ChildComponent() {
+  const value = useContext(Context)
+  
+  // react가 아닌 javascript가 반환된다.
+  return <>{value ? value.hello : ''}</>
+}
+`
+
 export const USEREF_EXM4 = `
 function usePrevious(value) {
   const ref = useRef()

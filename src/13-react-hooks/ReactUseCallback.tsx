@@ -3,7 +3,12 @@ import { USECALLBACK_EXM1, USECALLBACK_EXM2 } from './exm'
 
 export default function ReactUseCallback() {
   return (
-    <section id="use-callback">
+    <div className="text-base-text flex flex-col gap-6 py-6">
+      <section className="flex flex-col gap-8">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-base-heading border-b border-base-border/30 pb-4 mb-6">
+          # 13. React Hooks
+        </h1>
+        <section id="use-callback">
       <h2 className="font-bold text-xl sm:text-2xl text-primary pb-2">useCallback</h2>
       <p>• useMemo는 값을 기억하는 것이라면 useCallback은 인수로 넘겨 받은 콜백을 기억하는 것</p>
       <p>• 특정 함수를 새로 만들지 않고 재사용하는 것</p>
@@ -38,5 +43,7 @@ export default function ReactUseCallback() {
         </div>
       </div>
     </section>
+      </section>
+    </div>
   )
 }
