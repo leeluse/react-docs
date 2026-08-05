@@ -1,6 +1,7 @@
 import ReactUseCallback from './ReactUseCallback'
 import ReactUseEffect from './ReactUseEffect'
 import ReactUseMemo from './ReactUseMemo'
+import ReactUseRef from './ReactUseRef'
 import ReactUseState from './ReactUseState'
 
 export default function ReactHooks() {
@@ -14,6 +15,7 @@ export default function ReactHooks() {
         <ReactUseEffect />
         <ReactUseMemo />
         <ReactUseCallback />
+        <ReactUseRef />
       </section>
     </div>
   )

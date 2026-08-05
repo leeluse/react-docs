@@ -1,3 +1,71 @@
+export const USEREF_EXM4 = `
+function usePrevious(value) {
+  const ref = useRef()
+  useEffect(() => {
+    ref.current = value
+  }, [value]) // value가 변경되면 그 값을 ref에 넣어 둔다
+
+  return ref.current
+}
+
+function SomeComponent() {
+  const [counter, setCounter] = useState(0)
+  const previousCounter = usePrevious(counter)
+
+    // 0
+    // 1, 0
+    // 2, 1
+    // 3, 2
+    return (
+      <button onClick={handleClick}>
+        {counter} {previousCounter}
+      </button>
+    )
+
+}
+`
+
+export const USEREF_EXM3 = `
+function RefComponent() {
+  const inputRef = useRef()
+
+  // 이때는 미처 렌더링이 실행되기 전(반환되기 전)이므로 undefined를 반환한다
+  console.log(inputRef.current)
+
+  useEffect(() => {
+    console.log(inputRef.current)  // <input type="text"></input>
+  }, [inputRef])
+
+  return (
+    <input ref={inputRef} type="text" />
+  )
+}
+`
+
+export const USEREF_EXM2 = `
+let value = 0
+
+function Component() {
+  function handleClick() {
+    value += 1  
+  }
+
+  //..
+}
+`
+
+export const USEREF_EXM1 = `
+function RefComponent() {
+  const count = useRef(0)
+
+  function handleClick() {
+    count.current += 1
+  }
+  // 버튼을 아무리 눌러도 변경된 count 값이 렌더링되지 않음
+  return <button onClick={handleClick}>{count.current}</button>
+}
+`
+
 export const USECALLBACK_EXM2 = `
   const toggle1 = useCallback(() => {
     setStatus1(!status1)
