@@ -10,7 +10,7 @@ interface SideBarProps {
 
 export default function SideBar({ isOpen, setIsOpen, isSub, setIsSub }: SideBarProps) {
   const nav = useNavigate()
-  const paramsId = useParams().id
+  const { id: paramsId, subId: paramsSubId } = useParams()
 
   const onClick = (type: string, id: string) => {
     if (type === 'MAIN') {
@@ -84,23 +84,28 @@ export default function SideBar({ isOpen, setIsOpen, isSub, setIsSub }: SideBarP
                         className="w-full pl-3.5 mt-2 flex flex-col gap-1 border-l border-base-border/20 ml-1.5"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        {item.sub.map((subItem) => (
-                          <li key={subItem}>
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault()
-                                const el = document.getElementById(subItem)
-                                if (el) {
-                                  el.scrollIntoView({ behavior: 'smooth' })
-                                }
-                                setIsOpen(false)
-                              }}
-                              className="block w-full text-left py-1 text-xs text-slate-500 hover:text-primary dark:text-zinc-400 dark:hover:text-primary transition-colors font-medium cursor-pointer"
-                            >
-                              {subItem}
-                            </button>
-                          </li>
-                        ))}
+                        {item.sub.map((subItem) => {
+                          const isSubActive = subItem === paramsSubId
+                          return (
+                            <li key={subItem}>
+                              <button
+                                onClick={() => {
+                                  nav(`/${item.id}/${subItem}`)
+                                  setIsOpen(false)
+                                }}
+                                className={`block w-full text-left py-1 text-xs transition-colors font-medium cursor-pointer
+                                  ${
+                                    isSubActive
+                                      ? 'text-primary font-bold'
+                                      : 'text-slate-500 hover:text-primary dark:text-zinc-400 dark:hover:text-primary'
+                                  }
+                                `}
+                              >
+                                {subItem}
+                              </button>
+                            </li>
+                          )
+                        })}
                       </ul>
                     )}
                   </li>

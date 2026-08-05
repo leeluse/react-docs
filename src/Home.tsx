@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Navigate } from 'react-router-dom'
 import TicTacToc from './01-tictactoe/TicTacToe'
 import VirtualDOM from './02-virtual-dom/VirtualDOM'
 import Function from './03-Function/Function'
@@ -11,11 +11,16 @@ import LifeCycle from './09-life-cycle/LifeCycle'
 import Ref from './10-Ref/Ref'
 import ReactRendering from './11-react-rendering/ReactRendering'
 import Memoization from './12-memoization/Memoization'
-import ReactHooks from './13-react-hooks/ReactHooks'
 import StateManagement from './14-state-management/StateManagement'
 
+import ReactUseState from './13-react-hooks/ReactUseState'
+import ReactUseEffect from './13-react-hooks/ReactUseEffect'
+import ReactUseMemo from './13-react-hooks/ReactUseMemo'
+import ReactUseCallback from './13-react-hooks/ReactUseCallback'
+import ReactUseRef from './13-react-hooks/ReactUseRef'
+
 export default function Home() {
-  const { id } = useParams()
+  const { id, subId } = useParams()
 
   switch (id) {
     case 'tictactoe':
@@ -55,7 +60,23 @@ export default function Home() {
       return <Memoization />
 
     case 'react-hooks':
-      return <ReactHooks />
+      if (subId) {
+        switch (subId) {
+          case 'use-state':
+            return <ReactUseState />
+          case 'use-effect':
+            return <ReactUseEffect />
+          case 'use-memo':
+            return <ReactUseMemo />
+          case 'use-callback':
+            return <ReactUseCallback />
+          case 'use-ref':
+            return <ReactUseRef />
+          default:
+            return <Navigate to="/react-hooks/use-state" replace />
+        }
+      }
+      return <Navigate to="/react-hooks/use-state" replace />
 
     case 'state-management':
       return <StateManagement />

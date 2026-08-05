@@ -9,6 +9,7 @@ function App() {
         <Route path="/" element={<Navigate to="/tictactoe" replace />} />
         <Route path="/:id" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path=":subId" element={<Home />} />
         </Route>
       </Routes>
     </BrowserRouter>
