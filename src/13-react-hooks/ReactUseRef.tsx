@@ -3,7 +3,7 @@ import { USEREF_EXM1, USEREF_EXM2, USEREF_EXM3, USEREF_EXM4 } from './exm'
 
 export default function ReactUseRef() {
   return (
-    <section>
+    <section id="use-ref">
       <h2 className="font-bold text-xl sm:text-2xl text-primary pb-2">useRef</h2>
       <p>• useState와 동일하게 컴포넌트 내부에서 렌더링이 일어나도 변경 가능한 상태값을 저장</p>
       <p>

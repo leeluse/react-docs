@@ -15,7 +15,7 @@ import {
 
 export default function ReactUseEffect() {
   return (
-    <section className="mt-10">
+    <section id="use-effect" className="mt-10">
       <h2 className="font-bold text-xl sm:text-2xl text-primary pb-2">useEffect</h2>
       <div className="flex flex-col pt-4">
         <h4 className="font-bold text-slate-300 pb-1 border-b mb-1 border-b-slate-600/30">

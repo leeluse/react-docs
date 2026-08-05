@@ -4,15 +4,25 @@ import { NAV } from '../constants/nav'
 interface SideBarProps {
   isOpen: boolean
   setIsOpen: (open: boolean) => void
+  isSub: boolean
+  setIsSub: (open: boolean) => void
 }
 
-export default function SideBar({ isOpen, setIsOpen }: SideBarProps) {
+export default function SideBar({ isOpen, setIsOpen, isSub, setIsSub }: SideBarProps) {
   const nav = useNavigate()
   const paramsId = useParams().id
 
-  const onClick = (id: string) => {
-    nav(`/${id}`)
-    setIsOpen(false) // Close drawer on selection for mobile view
+  const onClick = (type: string, id: string) => {
+    if (type === 'MAIN') {
+      const selectedItem = NAV.find((i) => i.id === id)
+      if (selectedItem && selectedItem.sub.length > 0) {
+        setIsSub(paramsId === id ? !isSub : true)
+      } else {
+        setIsSub(false)
+      }
+      nav(`/${id}`)
+      setIsOpen(false) // Close drawer on selection for mobile view
+    }
   }
 
   return (
@@ -59,7 +69,7 @@ export default function SideBar({ isOpen, setIsOpen }: SideBarProps) {
                 return (
                   <li
                     key={item.id}
-                    onClick={() => onClick(item.id)}
+                    onClick={() => onClick('MAIN', item.id)}
                     className={`py-2 px-3.5 rounded-lg cursor-pointer text-sm font-semibold transition-all duration-200 
                       ${
                         isActive
@@ -69,6 +79,30 @@ export default function SideBar({ isOpen, setIsOpen }: SideBarProps) {
                     `}
                   >
                     <p className="w-full">{item.title}</p>
+                    {isSub && isActive && (
+                      <ul
+                        className="w-full pl-3.5 mt-2 flex flex-col gap-1 border-l border-base-border/20 ml-1.5"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {item.sub.map((subItem) => (
+                          <li key={subItem}>
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault()
+                                const el = document.getElementById(subItem)
+                                if (el) {
+                                  el.scrollIntoView({ behavior: 'smooth' })
+                                }
+                                setIsOpen(false)
+                              }}
+                              className="block w-full text-left py-1 text-xs text-slate-500 hover:text-primary dark:text-zinc-400 dark:hover:text-primary transition-colors font-medium cursor-pointer"
+                            >
+                              {subItem}
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 )
               })}

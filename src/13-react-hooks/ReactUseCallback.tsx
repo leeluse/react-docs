@@ -3,7 +3,7 @@ import { USECALLBACK_EXM1, USECALLBACK_EXM2 } from './exm'
 
 export default function ReactUseCallback() {
   return (
-    <section>
+    <section id="use-callback">
       <h2 className="font-bold text-xl sm:text-2xl text-primary pb-2">useCallback</h2>
       <p>• useMemo는 값을 기억하는 것이라면 useCallback은 인수로 넘겨 받은 콜백을 기억하는 것</p>
       <p>• 특정 함수를 새로 만들지 않고 재사용하는 것</p>

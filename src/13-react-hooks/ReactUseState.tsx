@@ -11,7 +11,7 @@ import {
 
 export default function ReactUseState() {
   return (
-    <section>
+    <section id="use-state">
       <h2 className="font-bold text-xl sm:text-2xl text-primary pb-2">useState</h2>
       <p>함수 컴포넌트 내부에서 상태를 정의하고 상태를 관리할 수 있게 하는 훅</p>
       <p className="border-l-2 border-primary pl-2 py-2 text-white bg-primary/10 mt-2">

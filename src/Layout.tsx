@@ -1,14 +1,29 @@
-import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Outlet, useParams } from 'react-router-dom'
 import SideBar from './components/SideBar'
+import { NAV } from './constants/nav'
 
 export default function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const { id } = useParams()
+  const [isSub, setIsSub] = useState(() => {
+    return (NAV.find((item) => item.id === id)?.sub.length ?? 0) > 0
+  })
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsSub((NAV.find((item) => item.id === id)?.sub.length ?? 0) > 0)
+  }, [id])
 
   return (
     <div className="flex h-screen w-full text-base-text bg-base-bg overflow-hidden relative">
       {/* Sidebar Navigation */}
-      <SideBar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+      <SideBar
+        isOpen={isSidebarOpen}
+        setIsOpen={setIsSidebarOpen}
+        isSub={isSub}
+        setIsSub={setIsSub}
+      />
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col h-full overflow-hidden min-w-0">
@@ -34,7 +49,6 @@ export default function Layout() {
           </span>
           <div className="w-6 h-6"></div> {/* Spacer to center the title */}
         </header>
-
         <main className="flex-1 overflow-y-auto no-scrollbar bg-slate-50/20 dark:bg-zinc-900/10 p-5 sm:p-8 md:p-12">
           <div className="max-w-4xl mx-auto w-full">
             <Outlet />

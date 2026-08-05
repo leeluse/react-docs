@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/refs */
 import { useEffect, useMemo, useRef, useState } from 'react'
 import CodeBlock from '../components/CodeBlock'
 import { USEMEMO_EXM1, USEMEMO_EXM2 } from './exm'
 
 export default function ReactUseMemo() {
   return (
-    <section>
+    <section id="use-memo">
       <h2 className="font-bold text-xl sm:text-2xl text-primary pb-2">useMemo</h2>
       <p>비용이 큰 연산에 대한 결과를 저장(메모이제이션) 해 두고 이 저장된 값을 반환하는 훅</p>
       <article className="flex justify-between">
