@@ -14,7 +14,18 @@ export const NAV = [
   {
     id: 'react-hooks',
     title: '13. React Hooks',
-    sub: ['use-state', 'use-effect', 'use-memo', 'use-callback', 'use-ref', 'use-context'],
+    sub: [
+      'use-state',
+      'use-effect',
+      'use-memo',
+      'use-callback',
+      'use-ref',
+      'use-context',
+      'use-reducer',
+      'use-imperative-handle',
+      'use-layout-effect',
+      'use-debug-value',
+    ],
   },
   { id: 'state-management', title: '14. State Management', sub: [] },
 ]

@@ -19,6 +19,10 @@ import ReactUseMemo from './13-react-hooks/ReactUseMemo'
 import ReactUseCallback from './13-react-hooks/ReactUseCallback'
 import ReactUseRef from './13-react-hooks/ReactUseRef'
 import ReactUseContext from './13-react-hooks/ReactUseContext'
+import ReactUseReducer from './13-react-hooks/ReactUseReducer'
+import ReactUseImperativeHandle from './13-react-hooks/ReactUseImperativeHandle'
+import ReactUseLayoutEffect from './13-react-hooks/ReactUseLayoutEffect'
+import ReactUseDebugValue from './13-react-hooks/ReactUseDebugValue'
 
 export default function Home() {
   const { id, subId } = useParams()
@@ -75,6 +79,14 @@ export default function Home() {
             return <ReactUseRef />
           case 'use-context':
             return <ReactUseContext />
+          case 'use-reducer':
+            return <ReactUseReducer />
+          case 'use-imperative-handle':
+            return <ReactUseImperativeHandle />
+          case 'use-layout-effect':
+            return <ReactUseLayoutEffect />
+          case 'use-debug-value':
+            return <ReactUseDebugValue />
           default:
             return <Navigate to="/react-hooks/use-state" replace />
         }

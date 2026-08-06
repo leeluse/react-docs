@@ -81,7 +81,7 @@ export default function SideBar({ isOpen, setIsOpen, isSub, setIsSub }: SideBarP
                     <p className="w-full">{item.title}</p>
                     {isSub && isActive && (
                       <ul
-                        className="w-full pl-3.5 mt-2 flex flex-col gap-1 border-l border-base-border/20 ml-1.5"
+                        className="w-full p-2 flex flex-col gap-1 "
                         onClick={(e) => e.stopPropagation()}
                       >
                         {item.sub.map((subItem) => {
@@ -101,7 +101,7 @@ export default function SideBar({ isOpen, setIsOpen, isSub, setIsSub }: SideBarP
                                   }
                                 `}
                               >
-                                {subItem}
+                                {subItem.replace(/-([a-z])/g, (g) => g[1].toUpperCase())}
                               </button>
                             </li>
                           )

@@ -1,3 +1,88 @@
+export const USEREDUCER_EXM5 = `
+const useReducer = (reducer, initArg, init) => {
+  const [state, setState] = useState(
+  // 초기화 함수 있을 경우 초기값과 초기화 함수 실행
+  // 없을 경우 초기값
+   init ? init(initArg) : initArg
+  )
+
+  // 값을 업데이트하는 dispatch를 넣어 준다
+  const dispatch = useCallback(
+    (action) => setState((prev) => reducer(prev, action)),
+    [reducer],
+  )
+
+  return useMemo(() => [state, dispatch], [state, dispatch])
+}
+`
+export const USEREDUCER_EXM4 = `
+  export default function App() {
+    const [state, dispatcher] = useReducer(reducer, initialState, init)
+
+    function handleUpButtonClick() { 
+      dispatcher({ type: 'up' }) 
+    }
+    function handleDownButtonClick() { 
+      dispatcher({ type: 'down' }) 
+    }
+    function handleResetButtonClick() { 
+      dispatcher({ type: 'reset', payload: { count: 1 } }) 
+    }
+
+    return (
+      <>
+        <div>{state.count}</div>
+        <button onClick={handleUpButtonClick}>up</button>
+        <button onClick={handleDownButtonClick}>down</button>
+        <button onClick={handleResetButtonClick}>reset</button>
+      </>
+    )
+  }
+`
+
+export const USEREDUCER_EXM1 = `
+type State = {
+  count: number
+}
+type Action = {
+  type: 'up' | 'down' | 'reset';
+  payload?: State
+}
+`
+
+export const USEREDUCER_EXM2 = `
+// 무거운 연산이 포함된 게으른 초기화 함수
+function init(count: State): State {
+  // count: State를 받아서 초깃값을
+  // 어떻게 정의할 지 연산하면 된다
+  return count
+}
+// 초기값 설정
+const initialState = {
+  count: 0
+}
+`
+export const USEREDUCER_EXM3 = `
+// state와 action을 기반으로 state가 어떻게 변경될지 정의
+function reducer(state: State, action: Action)
+  : State {
+  switch (action.type) {
+  // action의 타입이 'up'일 경우
+    case 'up':
+      return { count: state.count + 1 }
+  // action의 타입이 'down'일 경우
+    case 'down':
+      return { count: state.count - 1 > 0 
+               ? state.count - 1 : 0}
+  // action의 타입이 'reset'일 경우
+    case 'reset':
+      return init(action.payload || { count: 0 })
+    default:
+      throw new Error('Unexpected action type')
+  }
+}
+`
+
 export const USECONTEXT_EXM2 = `
 const MyContext = createContext<{ hello: string } | undefined>(undefined)
 
