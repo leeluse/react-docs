@@ -1,3 +1,27 @@
+export const USELAYOUTEFFECT_EXM1 = `
+function App() {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    console.log('useEffect', count)
+  }, [count])
+  
+  useLayoutEffect(() => {
+    console.log('useLayoutEffect', count)
+  }, [count])
+
+  function handleClick() {
+    setCount((prev) => prev + 1)
+  }
+  return (
+    <>
+      <h1>{count}</h1>
+      <button onClick={handleClick}>up</button>
+    </>
+  )
+}
+`
+
 export const USEIMPERATIVEHANDLE_EXM2 = `
 const Input = forwardRef((props, ref) => {
 // useImperativeHandle을 사용하면 ref의 동작을 추가 정의할 수 있다
