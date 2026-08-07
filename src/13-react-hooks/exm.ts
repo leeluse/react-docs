@@ -1,3 +1,32 @@
+export const USEDEBUGVALUE_EXM1 = `
+// 현재 시간을 반환하는 사용자 정의 훅
+function useDate() {
+  const date = new Date()
+
+  useDebugValue(date, (date) => 현재 시간 + date.toISOString())
+  return date
+}
+`
+
+export const USEDEBUGVALUE_EXM2 = `
+export default function App() {
+  const date = useDate()
+  const [counter, setCounter] = useState(0)
+
+  function handleClick() {
+    setCounter((prev) => prev + 1)
+  }
+
+  return (
+    <div>
+      <h1>{counter} {date.toISOString()}</h1>
+      <button onClick={handleClick}>+</button>
+    </div>
+  )
+
+}
+`
+
 export const USELAYOUTEFFECT_EXM1 = `
 function App() {
   const [count, setCount] = useState(0)
