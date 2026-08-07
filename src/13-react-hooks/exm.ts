@@ -1,3 +1,53 @@
+export const USEIMPERATIVEHANDLE_EXM2 = `
+const Input = forwardRef((props, ref) => {
+// useImperativeHandle을 사용하면 ref의 동작을 추가 정의할 수 있다
+  useImperativeHandle(
+    ref, () => ({ 
+      alert: () => alert(props.value),
+      // useEffect의 deps와 같다
+    }), [props.value]
+  )
+  return <input ref={ref} {...props} />
+})
+`
+
+export const USEIMPERATIVEHANDLE_EXM3 = `
+function App() {
+  // input에 사용할 ref
+  const inputRef = useRef()
+  // input의 value
+  const [text, setText] = useState('')
+
+  function handleClick() {
+    inputRef.current.alert()
+  }
+
+  function handleChange(e) {
+    setText(e.target.value)
+  }
+  return (
+    <>
+      <Input ref={inputRef} value={text} onChange={handleChange} />
+      <button onClick={handleClick}>Focus</button>
+    </>
+  )
+  
+}
+`
+
+export const USEIMPERATIVEHANDLE_EXM1 = `
+const ChildComponent = forwardRef((props, ref) => {
+    return <input ref={ref} />
+  }
+)
+function ParentComponent() {
+  const inputRef = useRef()
+  return (
+      <ChildComponent ref={inputRef} />
+  )
+}
+`
+
 export const USEREDUCER_EXM5 = `
 const useReducer = (reducer, initArg, init) => {
   const [state, setState] = useState(
