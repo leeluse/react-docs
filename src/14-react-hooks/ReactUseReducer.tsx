@@ -225,7 +225,10 @@ export function UseStateToUseReducer() {
     <article>
       <h3 className="font-bold text-lg sm:text-xl text-white">useState로 useReducer 구현하기</h3>
       <CodeBlock content={USEREDUCER_EXM5} />
-      <p>useReducer와 useState 둘의 공통점은 결국 클로저를 활용해 값을 가둬서 <code className='text-white'>state</code>를 관리한다는 것이다</p>
+      <p>
+        useReducer와 useState 둘의 공통점은 결국 클로저를 활용해 값을 가둬서{' '}
+        <code className="text-white">state</code>를 관리한다는 것이다
+      </p>
     </article>
   )
 }

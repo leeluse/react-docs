@@ -7,22 +7,23 @@ import ClassComponentApp from './05-components/ClassComponent'
 import Closure from './06-closure/Closure'
 import EventLoop from './07-event-loop/EventLoop'
 import EventHandling from './08-event-handling/EventHandling'
-import LifeCycle from './09-life-cycle/LifeCycle'
-import Ref from './10-Ref/Ref'
-import ReactRendering from './11-react-rendering/ReactRendering'
-import Memoization from './12-memoization/Memoization'
-import StateManagement from './14-state-management/StateManagement'
+import ReactForm from './09-react-form/ReactForm'
+import LifeCycle from './10-life-cycle/LifeCycle'
+import Ref from './11-Ref/Ref'
+import ReactRendering from './12-react-rendering/ReactRendering'
+import Memoization from './13-memoization/Memoization'
+import StateManagement from './15-state-management/StateManagement'
 
-import ReactUseState from './13-react-hooks/ReactUseState'
-import ReactUseEffect from './13-react-hooks/ReactUseEffect'
-import ReactUseMemo from './13-react-hooks/ReactUseMemo'
-import ReactUseCallback from './13-react-hooks/ReactUseCallback'
-import ReactUseRef from './13-react-hooks/ReactUseRef'
-import ReactUseContext from './13-react-hooks/ReactUseContext'
-import ReactUseReducer from './13-react-hooks/ReactUseReducer'
-import ReactUseImperativeHandle from './13-react-hooks/ReactUseImperativeHandle'
-import ReactUseLayoutEffect from './13-react-hooks/ReactUseLayoutEffect'
-import ReactUseDebugValue from './13-react-hooks/ReactUseDebugValue'
+import ReactUseState from './14-react-hooks/ReactUseState'
+import ReactUseEffect from './14-react-hooks/ReactUseEffect'
+import ReactUseMemo from './14-react-hooks/ReactUseMemo'
+import ReactUseCallback from './14-react-hooks/ReactUseCallback'
+import ReactUseRef from './14-react-hooks/ReactUseRef'
+import ReactUseContext from './14-react-hooks/ReactUseContext'
+import ReactUseReducer from './14-react-hooks/ReactUseReducer'
+import ReactUseImperativeHandle from './14-react-hooks/ReactUseImperativeHandle'
+import ReactUseLayoutEffect from './14-react-hooks/ReactUseLayoutEffect'
+import ReactUseDebugValue from './14-react-hooks/ReactUseDebugValue'
 
 export default function Home() {
   const { id, subId } = useParams()
@@ -51,6 +52,9 @@ export default function Home() {
 
     case 'event-handling':
       return <EventHandling />
+
+    case 'react-form':
+      return <ReactForm />
 
     case 'life-cycle':
       return <LifeCycle />

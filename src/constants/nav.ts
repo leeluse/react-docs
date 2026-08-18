@@ -7,13 +7,14 @@ export const NAV = [
   { id: 'closure', title: '06. Closure', sub: [] },
   { id: 'event-loop', title: '07. Event Loop', sub: [] },
   { id: 'event-handling', title: '08. Event Handling', sub: [] },
-  { id: 'life-cycle', title: '09. Life Cycle', sub: [] },
-  { id: 'ref', title: '10. Ref: DOM', sub: [] },
-  { id: 'react-rendering', title: '11. React Rendering', sub: [] },
-  { id: 'memoization', title: '12. Memoization', sub: [] },
+  { id: 'react-form', title: '09. React Form', sub: [] },
+  { id: 'life-cycle', title: '10. Life Cycle', sub: [] },
+  { id: 'ref', title: '11. Ref: DOM', sub: [] },
+  { id: 'react-rendering', title: '12. React Rendering', sub: [] },
+  { id: 'memoization', title: '13. Memoization', sub: [] },
   {
     id: 'react-hooks',
-    title: '13. React Hooks',
+    title: '14. React Hooks',
     sub: [
       'use-state',
       'use-effect',
@@ -27,5 +28,5 @@ export const NAV = [
       'use-debug-value',
     ],
   },
-  { id: 'state-management', title: '14. State Management', sub: [] },
+  { id: 'state-management', title: '15. State Management', sub: [] },
 ]
