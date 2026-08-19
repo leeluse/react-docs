@@ -26,6 +26,7 @@ export const NAV = [
       'use-imperative-handle',
       'use-layout-effect',
       'use-debug-value',
+      'rules-of-hooks',
     ],
   },
   { id: 'state-management', title: '15. State Management', sub: [] },

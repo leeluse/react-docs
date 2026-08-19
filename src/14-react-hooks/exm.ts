@@ -1,3 +1,92 @@
+export const RULES_EXM7 = `
+function Stopwatch() {
+  const [time, setTime] = useState(0)
+  const timerId = useRef(null);
+
+  function start() {
+    if (timerId.current) return;
+    timerId.current = setInterval(() => setTime((prev) => prev + 1), 1000)
+  }
+
+  function stop() {
+    if (!timerId.current) return;
+    clearInterval(timerId.current)
+    timerId.current = null
+  }
+
+  return <> {time}s <button onClick={start}> 시작 </button> <button onClick={stop}> 중지 </button> </>
+}
+`
+
+export const RULES_EXM6 = `
+function TextInput() {
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  return <input ref={inputRef} />
+}
+`
+
+export const RULES_EXM5 = `
+type State = { count: number; step: number }
+type Action =
+   | { type: "inc" } | { type: "dec" } 
+   | { type: "step", value: number } | { type: "reset" }
+
+const initial: State = { count: 0, step: 1 };
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case "inc": return { ...state, count: state.count + state.step }
+    case "dec": return { ...state, count: state.count - state.step }
+    case "step": return { ...state, step: action.value }
+    case "reset": return initail;
+  }
+}
+
+function Counter() {
+const [state, dispatch] = useReducer(reducer, initial);
+// ...동일
+}
+`
+
+export const RULES_EXM4 = `
+function onClick() {
+  setCount(count + 1);
+  console.log(count); // 여전히 이전 값! 다음 렌더에서 갱신됨
+}
+`
+
+export const RULES_EXM3 = `
+function handleClick() {
+  setA(1);
+  setB(2);
+  setC(3);
+  // 위 세 번이 묶여 리렌더는 1회만 발생
+}
+`
+
+export const RULES_EXM2 = `
+// 매 렌더마다 expensiveInit()이 호출됨 (낭비)
+  const [data, setData] = useState(expensiveInit());
+// 함수 전달 -> 첫 렌더에 1회만 실행됨
+  const [data, setData] = useState(() => expensiveInit());
+`
+
+export const RULES_EXM = `
+  // ❌ 조건부 호출 - 순서가 깨져 상태가 엉킴
+   if(isLoggedIn) {
+    const [name, setName] = useState("");
+   }
+
+   // ✅ 조건부 호출 - 순서가 깨져 상태가 엉킴
+    const [name, setName] = useState("");
+   if(isLoggedIn) { /* name 사용 */ }
+`
+
 export const USEDEBUGVALUE_EXM1 = `
 // 현재 시간을 반환하는 사용자 정의 훅
 function useDate() {
@@ -704,4 +793,193 @@ const MyReact = (function () {
     ...}
   }
 })()
+`
+
+export const CONTEXT_PERF_USECONTEXT_JSX = `
+import { createContext, useContext, useState } from "react";
+
+const ThemeContext = createContext("light");
+
+function App() {
+  const [theme, setTheme] = useState("dark");
+  
+  return (
+    // React 19: <Context> 자체를 Provider로 사용 가능
+    <ThemeContext value={theme}>
+      <Toolbar />
+      <button onClick={() => setTheme(t => t === "dark" ? "light" : "dark")}>
+        토글
+      </button>
+    </ThemeContext>
+  );
+}
+
+function Toolbar() {
+  return <ThemedButton />; // theme을 prop으로 안 받아도 됨
+}
+
+function ThemedButton() {
+  const theme = useContext(ThemeContext); // 가까운 Provider의 값
+  return <button className={theme}>버튼</button>;
+}
+`
+
+export const CONTEXT_PERF_USECONTEXT_TSX = `
+type Theme = "light" | "dark";
+const ThemeContext = createContext<Theme>("light");
+// React 18 이하: <ThemeContext.Provider value={theme}> 형태 사용
+`
+
+export const CONTEXT_PERF_USEMEMO_JSX = `
+import { useMemo } from "react";
+
+function ProductList({ products, keyword }) {
+  // products나 keyword가 바뀔 때만 필터링 재실행
+  const filtered = useMemo(
+    () => products.filter(p => p.name.includes(keyword)),
+    [products, keyword]
+  );
+  
+  return <ul>{filtered.map(p => <li key={p.id}>{p.name}</li>)}</ul>;
+}
+`
+
+export const CONTEXT_PERF_USECALLBACK_JSX = `
+import { useCallback } from "react";
+
+function Parent({ items }) {
+  // 의존성이 바뀌지 않으면 같은 함수 참조를 유지
+  const handleSelect = useCallback((id) => {
+    console.log("선택:", id);
+  }, []);
+
+  return items.map(it =>
+    <MemoizedRow key={it.id} item={it} onSelect={handleSelect} />
+  );
+}
+`
+
+export const CONTEXT_PERF_REACTMEMO_JSX = `
+import { memo } from "react";
+
+const MemoizedRow = memo(function Row({ item, onSelect }) {
+  console.log("render", item.id);
+  return <li onClick={() => onSelect(item.id)}>{item.name}</li>;
+});
+`
+
+export const CONCURRENT_USE_TRANSITION_JSX = `
+function SearchableList({ allItems }) {
+  const [query, setQuery] = useState("");
+  const [list, setList] = useState(allItems);
+
+  const [isPending, startTransition] = useTransition();
+  
+  function onChange(e) {
+    const q = e.target.value;
+    setQuery(q); // 급한 업데이트
+    startTransition(() => {
+      // 무거운 업데이트 - 낮은 우선순위
+      setList(allItems.filter(it => it.includes(q)));
+    });
+  } 
+}
+
+
+`
+
+export const CONCURRENT_USE_DEFERRED_VALUE_JSX = `
+function Results({ query }) {
+  const deferred = useDeferredValue(query); // query보다 늦게 따라옴
+  const items = useMemo(() => search(deferred), [deferred]);
+
+  return <List items={items} />;
+}
+`
+
+export const USE_SYNC_IMPERATIVE = `
+function subscribe(callback) {
+  window.addEventListener("online", callback);
+  window.addEventListener("offline", callback);
+
+  return () => {
+    window.removeEventListener("online", callback);
+    window.removeEventListener("offline", callback);
+  };
+}
+
+function useOnline() {
+  return useSyncExternalStore(subscribe, () => navigator.onLine);
+
+}
+`
+export const USEID = `
+function Field({ label }) {
+  const id = useId();
+  return (
+    <>
+      <label htmlFor={id}>{label}</label>
+      <input id={id} />
+    </>
+  )
+}
+`
+
+export const NEW_HOOKS_USE_ACTION_STATE_JSX = `
+function ProfileForm() {
+  const [state, formAction, isPending] = useActionState(
+    async (prev, formData) => {
+      const name = formData.get("name");
+      const res = await saveName(name);
+      return res.ok ? { message: "저장됨" } : { error: "실패" };
+    }, 
+    { message: "" } // 초기 상태
+  )
+
+  return (
+    <form action={formAction}>
+      <input name="name" />
+      <button disabled={isPending}>
+        {isPending ? "제출 중..." : "제출"}
+      </button>
+      {state?.message}
+      {state?.error}
+    </form>
+  )
+}
+`
+
+export const NEW_HOOKS_USE_JSX = `
+function Comments({ commentsPromise }) {
+  const comments = use(commentsPromise); // 끝날 때까지 Suspense가 fallback 표시
+  return <ul>{comments.map(c => <li key={c.id}>{c.text}</li>)}</ul>
+}
+
+function Page({ commentsPromise }) {
+  return (
+    <Suspense fallback={<div>로딩중...</div>}>
+      <Comments commentsPromise={commentsPromise} />
+    </Suspense>
+  )
+}
+`
+
+export const NEW_HOOKS_USE_FORM_STATUS_JSX = `
+function SubmitButton() {
+  const { pending } = useFormStatus(); // 가장 가까운 form의 상태
+  return <button disabled={pending}>{pending ? "전송 중..." : "전송"}</button>;
+}
+  
+`
+
+export const NEW_HOOKS_USE_OPTIMISTIC_JSX = `
+function Likes({ count, onLike }) {
+  const [optimistic, addOptimistic] = useOptimistic(count, (cur) => cur + 1);
+  async function action() {
+    addOptimistic(); // 즉시 +1 표시
+    await onLike(); // 실패하면 실제 값으로 자동 복귀
+  }
+
+  return <button formAction={action}>❤️{optimistic}</button>
+}
 `

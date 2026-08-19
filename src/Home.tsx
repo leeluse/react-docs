@@ -24,6 +24,7 @@ import ReactUseReducer from './14-react-hooks/ReactUseReducer'
 import ReactUseImperativeHandle from './14-react-hooks/ReactUseImperativeHandle'
 import ReactUseLayoutEffect from './14-react-hooks/ReactUseLayoutEffect'
 import ReactUseDebugValue from './14-react-hooks/ReactUseDebugValue'
+import ReactRulesOfHooks from './14-react-hooks/ReactRulesOfHooks'
 
 export default function Home() {
   const { id, subId } = useParams()
@@ -91,6 +92,8 @@ export default function Home() {
             return <ReactUseLayoutEffect />
           case 'use-debug-value':
             return <ReactUseDebugValue />
+          case 'rules-of-hooks':
+            return <ReactRulesOfHooks />
           default:
             return <Navigate to="/react-hooks/use-state" replace />
         }

@@ -28,7 +28,7 @@ export default function ReactForm() {
       <div className="flex border-b border-base-border/30 gap-2">
         <button
           onClick={() => setActiveTab('controlled')}
-          className={`px-4 py-2 font-bold text-sm sm:text-base cursor-pointer transition-colors duration-200 border-b-2 -mb-[2px] ${
+          className={`px-4 py-2 font-bold text-sm sm:text-base cursor-pointer transition-colors duration-200 border-b-2 -mb-0.5 ${
             activeTab === 'controlled'
               ? 'border-primary text-primary'
               : 'border-transparent text-slate-500 hover:text-base-heading'
@@ -38,7 +38,7 @@ export default function ReactForm() {
         </button>
         <button
           onClick={() => setActiveTab('uncontrolled')}
-          className={`px-4 py-2 font-bold text-sm sm:text-base cursor-pointer transition-colors duration-200 border-b-2 -mb-[2px] ${
+          className={`px-4 py-2 font-bold text-sm sm:text-base cursor-pointer transition-colors duration-200 border-b-2 -mb-0.5 ${
             activeTab === 'uncontrolled'
               ? 'border-primary text-primary'
               : 'border-transparent text-slate-500 hover:text-base-heading'

@@ -370,7 +370,7 @@ export function FiberTreeVisualizer() {
   return (
     <div className="flex flex-col gap-4 mt-6">
       <div className="overflow-x-auto w-full border border-base-border/30 rounded-xl bg-slate-950/70 p-4">
-        <div className="min-w-[800px] relative">
+        <div className="min-w-200 relative">
           {/* Header labels */}
           <div className="flex flex-col sm:flex-row justify-between px-10 gap-2 mb-4 font-bold text-xs sm:text-sm text-slate-300">
             <span className="flex items-center gap-2">

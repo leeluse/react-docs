@@ -84,6 +84,58 @@ const LIFECYCLE_CODES = {
   },
 } as const
 
+const TIMER_CLASS_CODE = `import { Component } from "react";
+
+class Timer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { seconds: 0 }; // 1) 초기화
+  }
+
+  componentDidMount() {
+    // 2) 마운트 직후: 구독/타이머/데이터 로드
+    this.id = setInterval(() => {
+      this.setState(s => ({ seconds: s.seconds + 1 }));
+    }, 1000);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // 3) 업데이트 직후: 이전 값과 비교해 후처리
+    if (prevProps.userId !== this.props.userId) {
+      this.reload();
+    }
+  }
+
+  componentWillUnmount() {
+    // 4) 언마운트 직전: 정리(타이머 해제 등)
+    clearInterval(this.id);
+  }
+
+  render() {
+    return <p>{this.state.seconds}초</p>;
+  }
+}`
+
+const TIMER_FUNCTION_CODE = `import { useState, useEffect } from "react";
+
+// 클래스의 세 메서드를 useEffect 하나로
+function Timer({ userId }) {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    // componentDidMount
+    const id = setInterval(() => setSeconds(s => s + 1), 1000);
+    return () => clearInterval(id); // componentWillUnmount
+  }, []);
+
+  useEffect(() => {
+    // componentDidUpdate (userId 변경 시)
+    reload(userId);
+  }, [userId]);
+
+  return <p>{seconds}초</p>;
+}`
+
 type SelectedMethod = keyof typeof LIFECYCLE_CODES
 
 export default function LifeCycle() {
@@ -177,7 +229,7 @@ export default function LifeCycle() {
 
           {/* Code Preview Sidebar */}
           {selectedMethod && (
-            <div className="w-full lg:w-[380px] shrink-0 border border-slate-200/50 dark:border-zinc-800/50 rounded-xl bg-slate-500/5 dark:bg-zinc-900/40 p-5 flex flex-col gap-4 h-fit lg:sticky lg:top-6 self-start">
+            <div className="w-full lg:w-95 shrink-0 border border-slate-200/50 dark:border-zinc-800/50 rounded-xl bg-slate-500/5 dark:bg-zinc-900/40 p-5 flex flex-col gap-4 h-fit lg:sticky lg:top-6 self-start">
               <div className="flex items-center justify-between border-b border-slate-200/50 dark:border-zinc-800/50 pb-2.5">
                 <h3 className="font-extrabold text-sm sm:text-base text-base-heading">
                   코드 미리보기
@@ -217,6 +269,10 @@ export default function LifeCycle() {
           <ComponentDidUpdate />
           <ComponentWillUnmount />
           <ComponentDidCatch />
+        </div>
+
+        <div className="pt-8 mt-6 flex flex-col gap-8">
+          <ClassVsFunctionalLifeCycle />
         </div>
 
         <div className="border-t border-base-border/30 pt-8 mt-6 flex flex-col gap-4">
@@ -635,7 +691,7 @@ export function MountMethod({
             : 'border-pink-500/20'
         }`}
       >
-        <div className="flex items-center gap-2.5 min-w-[210px] justify-between sm:justify-start">
+        <div className="flex items-center gap-2.5 min-w-52.5 justify-between sm:justify-start">
           <span className="font-bold text-primary text-sm">{title}</span>
           {onShowCode && (
             <button
@@ -679,7 +735,7 @@ export function UnmountMethod({
             : 'border-yellow-500/20'
         }`}
       >
-        <div className="flex items-center gap-2.5 min-w-[210px] justify-between sm:justify-start">
+        <div className="flex items-center gap-2.5 min-w-52.5 justify-between sm:justify-start">
           <span className="font-bold text-yellow-600 dark:text-yellow-400 text-sm">{title}</span>
           {onShowCode && (
             <button
@@ -723,7 +779,7 @@ export function UpdateMethod({
             : 'border-blue-500/20'
         }`}
       >
-        <div className="flex items-center gap-2.5 min-w-[210px] justify-between sm:justify-start">
+        <div className="flex items-center gap-2.5 min-w-52.5 justify-between sm:justify-start">
           <span className="font-bold text-sky-600 dark:text-sky-400 text-sm">{title}</span>
           {onShowCode && (
             <button
@@ -741,6 +797,183 @@ export function UpdateMethod({
           <Arrow />
         </div>
       )}
+    </div>
+  )
+}
+
+export function ClassVsFunctionalLifeCycle() {
+  return (
+    <div className="flex flex-col gap-6">
+      <h2 className="text-xl sm:text-2xl font-bold text-base-heading border-b border-base-border/30 pb-3 mb-2">
+        # 함수형 + useEffect로의 매핑
+      </h2>
+      <p className="leading-relaxed text-sm sm:text-base">
+        함수형 컴포넌트는 클래스형 생명주기 메서드 대신{' '}
+        <code className="code-tag pink">useEffect</code> 및 React API를 활용해 동일한 작업을
+        수행합니다. 아래의 핵심 대응표와 구현 예제를 통해 패러다임의 변화를 비교해 보세요.
+      </p>
+
+      {/* 상단: 코드 비교 (2단 그리드) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-4">
+        {/* 클래스형 컴포넌트 코드 */}
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <span className="px-2.5 py-1 text-xs font-bold bg-pink-500/10 border border-pink-500/20 text-primary rounded-md">
+              Class
+            </span>
+            <h3 className="text-lg font-bold text-base-heading">클래스형 컴포넌트</h3>
+          </div>
+          <CodeBlock content={TIMER_CLASS_CODE} />
+        </div>
+
+        {/* 함수형 컴포넌트 코드 */}
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2">
+            <span className="px-2.5 py-1 text-xs font-bold bg-blue-500/10 border border-blue-500/20 text-sky-600 dark:text-sky-400 rounded-md">
+              Function
+            </span>
+            <h3 className="text-lg font-bold text-base-heading">함수형 컴포넌트 (useEffect)</h3>
+          </div>
+          <CodeBlock content={TIMER_FUNCTION_CODE} />
+        </div>
+      </div>
+
+      {/* 하단: 주요 메서드 및 매핑 테이블 (flex-col) */}
+      <div className="flex flex-col gap-8 mt-6">
+        {/* 주요 메서드 정리 테이블 */}
+        <div className="flex flex-col gap-3">
+          <h4 className="font-semibold text-sm sm:text-base text-base-heading">
+            • 주요 메서드 정리
+          </h4>
+          <div className="overflow-x-auto rounded-lg border border-base-border/50 bg-black/5 dark:bg-white/5">
+            <table className="min-w-full divide-y divide-base-border/30 text-left text-xs sm:text-sm">
+              <thead className="bg-black/10 dark:bg-white/5 text-base-heading font-semibold">
+                <tr>
+                  <th className="px-4 py-3">메서드</th>
+                  <th className="px-4 py-3">호출 시점</th>
+                  <th className="px-4 py-3">용도</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-base-border/30">
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">constructor</td>
+                  <td className="px-4 py-3 text-slate-400">인스턴스 생성</td>
+                  <td className="px-4 py-3 text-slate-400">state 초기화, 바인딩</td>
+                </tr>
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">render</td>
+                  <td className="px-4 py-3 text-slate-400">매 렌더</td>
+                  <td className="px-4 py-3 text-slate-400">UI 계산(순수)</td>
+                </tr>
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">componentDidMount</td>
+                  <td className="px-4 py-3 text-slate-400">첫 렌더 커밋 후</td>
+                  <td className="px-4 py-3 text-slate-400">데이터 로드, 구독</td>
+                </tr>
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">
+                    shouldComponentUpdate
+                  </td>
+                  <td className="px-4 py-3 text-slate-400">업데이트 전</td>
+                  <td className="px-4 py-3 text-slate-400">리렌더 여부 결정(최적화)</td>
+                </tr>
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">
+                    getDerivedStateFromProps
+                  </td>
+                  <td className="px-4 py-3 text-slate-400">렌더 전</td>
+                  <td className="px-4 py-3 text-slate-400">props로 state 파생</td>
+                </tr>
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">
+                    getSnapshotBeforeUpdate
+                  </td>
+                  <td className="px-4 py-3 text-slate-400">DOM 반영 직전</td>
+                  <td className="px-4 py-3 text-slate-400">스크롤 위치 등 캡처</td>
+                </tr>
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">componentDidUpdate</td>
+                  <td className="px-4 py-3 text-slate-400">업데이트 커밋 후</td>
+                  <td className="px-4 py-3 text-slate-400">변경 후처리</td>
+                </tr>
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">
+                    componentWillUnmount
+                  </td>
+                  <td className="px-4 py-3 text-slate-400">제거 직전</td>
+                  <td className="px-4 py-3 text-slate-400">정리</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* 함수형 + useEffect로의 매핑 테이블 */}
+        <div className="flex flex-col gap-3">
+          <h4 className="font-semibold text-sm sm:text-base text-base-heading">
+            • 함수형 + useEffect로의 매핑
+          </h4>
+          <div className="overflow-x-auto rounded-lg border border-base-border/50 bg-black/5 dark:bg-white/5">
+            <table className="min-w-full divide-y divide-base-border/30 text-left text-xs sm:text-sm">
+              <thead className="bg-black/10 dark:bg-white/5 text-base-heading font-semibold">
+                <tr>
+                  <th className="px-4 py-3">클래스 생명주기</th>
+                  <th className="px-4 py-3">함수형 (useEffect / API)</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-base-border/30">
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">componentDidMount</td>
+                  <td className="px-4 py-3 font-mono text-sky-600 dark:text-sky-400">
+                    {'useEffect(() => { ... }, [])'}
+                  </td>
+                </tr>
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">componentDidUpdate</td>
+                  <td className="px-4 py-3 font-mono text-sky-600 dark:text-sky-400">
+                    {'useEffect(() => { ... }, [dep])'}
+                  </td>
+                </tr>
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">
+                    componentWillUnmount
+                  </td>
+                  <td className="px-4 py-3 font-mono text-sky-600 dark:text-sky-400">
+                    {'useEffect(() => { return () => { ... } }, [])'}
+                  </td>
+                </tr>
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">
+                    shouldComponentUpdate
+                  </td>
+                  <td className="px-4 py-3 font-mono text-sky-600 dark:text-sky-400">
+                    React.memo + useMemo / useCallback
+                  </td>
+                </tr>
+                <tr className="hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+                  <td className="px-4 py-3 font-mono text-primary font-bold">
+                    getDerivedStateFromProps
+                  </td>
+                  <td className="px-4 py-3 text-slate-400">렌더 중 계산 or key로 상태 리셋</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      {/* 사고방식의 전환 */}
+      <div className="border-l-4 border-violet-500 pl-4 py-3 bg-violet-500/10 rounded-r-lg mt-6">
+        <h4 className="font-bold text-violet-600 dark:text-violet-400 text-sm sm:text-base mb-1">
+          💡 사고방식의 전환
+        </h4>
+        <p className="leading-relaxed text-xs sm:text-sm text-slate-600 dark:text-zinc-300">
+          클래스는 <strong>'시점(언제)'</strong>을 중심으로 생각합니다 (마운트될 때, 업데이트될 때).
+          <br />
+          반면 함수형은 <strong>'동기화(무엇과 무엇을 맞출까)'</strong>를 중심으로 생각합니다.
+          <code>useEffect</code>는 "이 의존성과 외부 시스템을 동기화하라"는 선언입니다.
+        </p>
+      </div>
     </div>
   )
 }

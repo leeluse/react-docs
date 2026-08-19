@@ -101,7 +101,9 @@ export default function SideBar({ isOpen, setIsOpen, isSub, setIsSub }: SideBarP
                                   }
                                 `}
                               >
-                                {subItem.replace(/-([a-z])/g, (g) => g[1].toUpperCase())}
+                                {subItem === 'rules-of-hooks'
+                                  ? 'Hook 심화'
+                                  : subItem.replace(/-([a-z])/g, (g) => g[1].toUpperCase())}
                               </button>
                             </li>
                           )
